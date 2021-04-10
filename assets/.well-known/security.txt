@@ -1,2 +1,3 @@
 # Our security address
-paysdufle+securite [une arobase] (et le nom de domaine mail du colosse de l'internet) .com
+paysdufle+securite [une arobase] (et le nom de domaine mail du "colosse" de l'internet) .com
+paysdufle+securite [at] (the mail domain name owned by Google) .com

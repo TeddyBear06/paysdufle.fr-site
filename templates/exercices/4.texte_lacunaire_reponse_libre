@@ -1,0 +1,10 @@
+SUPPRIMEZ CETTE LIGNE : La proposition entre [] sera remplacée par un champ de saisie libre.
+
+---
+image: Coller ici le chemin vers une image ou supprimer cette ligne ainsi que les ---. Ex. : images/maladies_symptômes_photo.jpg
+---
+
+Ajoutez une consigne ici.
+
+1. <a href="#" class="tts-content">Elle tousse</a>. Photo n° [6]
+2. <a href="#" class="tts-content">Elle a mal au ventre</a>. Photo n° [10]
