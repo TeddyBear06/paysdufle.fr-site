@@ -15,12 +15,9 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
 RUN docker-php-ext-install zip gd
 
-ADD . /usr/paysdufle.fr
+COPY run.sh /usr/paysdufle.fr/run.sh
+RUN chmod +x /usr/paysdufle.fr/run.sh
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-WORKDIR /usr/paysdufle.fr
-
-RUN composer install
-RUN php ./build.php local
-RUN cp -r /usr/paysdufle.fr/build/* /var/www/html/
+ENTRYPOINT [ "/usr/paysdufle.fr/run.sh" ]
