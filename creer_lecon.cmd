@@ -1,0 +1,1 @@
+docker run -it --rm --name paysdufle-lessons-utility -v %cd%:/usr/src -w /usr/src php:8-cli php lessons_utility.php
