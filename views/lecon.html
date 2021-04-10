@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block titre %}{{ titre }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+
+{% block meta_url %}{{ meta_url }}{% endblock %}
+{% block meta_titre %}{{ meta_titre }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+{% block meta_image %}{{ meta_image }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="preload" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></noscript>
+{% endblock %}
+
+{% block richSnippets %}
+    {{ resultatEnrichi|raw }}
+{% endblock %}
+
+{% block content %}
+
+    <div style="height: 375px;background-image: url({{ couverture }});background-size: cover;background-position: center;"></div>
+
+    {{ include('partials/breadcrumbs.html') }}
+
+    <br />
+
+    <div class="card">
+        <div class="card-header">
+            <h2>{{ titre }}</h2>
+        </div>
+        <div class="card-body">
+            {{ lecon|raw }}
+        </div>
+        <div class="card-body">
+            {% for exercice in exercices %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Exercice n°{{ exercice.numero }} : <small>{{ exercice.consigne }}</small></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text" id="contenuExercice{{ exercice.numero }}">{{ exercice.contenu|raw }}</div>
+                        <br />
+                        {% if exercice.afficher_bouton_corriger == true %}
+                            <a href="#" data-type="{{ exercice.type }}" data-target="contenuExercice{{ exercice.numero }}" class="pull-right btn btn-success corrigerExercice">Corriger l'exercice</a>
+                        {% endif %}
+                        {% if exercice.afficher_bouton_reponses == true %}
+                            <a href="#" data-type="{{ exercice.type }}" data-target="contenuExercice{{ exercice.numero }}" class="pull-right btn btn-link afficherCorrectionExercice">Afficher les réponses correctes</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <br />
+            {% endfor %}
+        </div>
+    </div>    
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/lecon.js"></script>
+    <script src="/assets/js/texte_lacunaire_choix_multiple.js"></script>
+    <script src="/assets/js/texte_lacunaire_reponse_libre.js"></script>
+    <script src="/assets/js/association_categorie.js"></script>
+    <script>
+        $('a.tts-content').on('click', function (e) {
+            e.preventDefault();
+            var word = $(this).text();
+            var tts_domain = 'https://[TTSdomain]/';
+            var mp3_domain = 'https://[MP3domain]/';
+            $.get(tts_domain + word).done(function(data) {
+                $('#audio-container').html('<audio autoplay="true" src="' + mp3_domain + data + '"></audio>');
+            });
+        });
+    </script>
+{% endblock %}

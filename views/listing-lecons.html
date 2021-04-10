@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block titre %}{{ label_categorie }} - {{ label_sousCategorie }} - Liste des leçons{% endblock %}
+
+{% block meta_titre %}{{ label_categorie }} - {{ label_sousCategorie }} - Liste des leçons{% endblock %}
+{% block meta_url %}{{ meta_url }}{% endblock %}
+
+{% block content %}
+
+    <style>
+    .fond_couverture {
+        height:100px;
+        background-size: cover;background-image: url("/assets/img/template/categories/{{ cover_categorie }}.jpg");
+    }
+    </style>
+
+    <div class="row no-gutters">
+        <div class="col-12 d-sm-none fond_couverture"></div>
+        <div class="col-12 col-sm-9 text-center background-{{ slug_categorie }} pt-0 pt-sm-5">
+            <h1>{{ label_categorie }}</h1>
+            <h2 style="background-color:#b7927e;">{{ label_sousCategorie }}</h2>
+            <p class="d-none d-sm-block">Parcourez les leçons ci-dessous pour améliorer votre français.</p>
+        </div>
+        <div class="col-sm-3 d-none d-sm-block">
+            <img src="/assets/img/template/categories/{{ cover_categorie }}.jpg" />
+        </div>
+    </div>
+    
+    {{ include('partials/breadcrumbs.html') }}
+
+    <br />
+
+    <div class="card-columns">
+        {% for lecon in lecons %}
+            <a class="a-{{ lecon.slug_categorie }}" href="/{{ lecon.url_lecon }}">
+                <div class="card card-custom text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ lecon.label_lecon }}</h5>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+{% endblock %}

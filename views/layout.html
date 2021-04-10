@@ -1,0 +1,69 @@
+{% set base_url = 'https://paysdufle.fr' %}
+{% set default_image = 'https://paysdufle.fr/assets/img/template/couverture.jpg' %}
+{% set default_titre = 'Alicja au pays du FLE' %}
+{% set default_description = 'Alicja au pays du FLE est un site pour améliorer votre français.' %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block titre %}{{ default_titre }}{% endblock %}</title>
+        <meta name="description" content="{% block description %}{{ default_description }}{% endblock %}">
+        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <meta property="og:url" content="{% block meta_url %}{{ base_url }}{% endblock %}" />
+        <meta property="og:title" content="{% block meta_titre %}{{ default_titre }}{% endblock %}" />
+        <meta property="og:description" content="{% block meta_description %}{{ default_description }}{% endblock %}" />
+        <meta property="og:image" content="{% block meta_image %}{{ default_image }}{% endblock %}" />
+        <link rel="stylesheet" href="/assets/css/vendors/bootstrap.litera.min.css">
+        <link rel="stylesheet" href="/assets/css/vendors/font-awesome/css/all.min.css">
+        <link rel="stylesheet" href="/assets/css/vendors/select2.min.css" />
+        <link rel="stylesheet" href="/assets/css/vendors/select2.min.css" />
+        <link rel="stylesheet" href="/assets/css/style.css">
+        {% block richSnippets %}{% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            {{ include('partials/menu.html') }}
+        </div>
+        
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="container-fluid text-center">
+            <hr />
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="/assets/img/creative_commons.png" /></a><br />Cette œuvre est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International</a>.
+            <br />
+            <a href="/pages/vie-privee.html">Vie privée</a> - <a href="/pages/mentions-legales.html">Mentions légales</a>
+            <br />
+            <p>2020 - 2021</p>
+        </div>
+
+        <div id="audio-container"></div>
+
+        <script src="/assets/js/vendors/jquery.min.js"></script>
+        <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
+        <script src="/assets/js/vendors/select2.full.min.js"></script>
+        <script src="/assets/js/vendors/lazysizes.min.js" async></script>
+        <script src="/assets/js/app.js"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block titre %}Alicja au pays du FLE - Plan du site{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card" >
+                <img src="/assets/img/template/couverture.jpg" class="card-img-top" alt="Couverture">
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <h1>Plan du site</h1>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <ul>
+                {% for categorie in sitemap %}
+                    <li>
+                        <a href="/{{ categorie.url }}">{{ categorie.label }}</a>
+                        <ul>
+                            {% for sous_categorie in categorie.sous_categories %}
+                                <li>
+                                    <a href="/{{ sous_categorie.url }}">{{ sous_categorie.label }}</a>
+                                    <ul>
+                                        {% for lecon in sous_categorie.lecons %}
+                                            <li><a href="/{{ lecon.url }}">{{ lecon.label }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                            {% endfor %}
+                        </ul>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

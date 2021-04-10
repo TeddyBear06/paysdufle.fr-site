@@ -1,0 +1,121 @@
+img { 
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+img[src*='#petite'] { 
+    width: 10em;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+img[src*='#moyenne'] { 
+    width: 20em;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+img[src*='#grande'] { 
+    width: 30em;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.navbar.bg-light {
+    border: none;
+}
+
+.a-*:hover {
+    color: black;
+}
+
+.card-custom {
+    border-color: #b7927e;
+}
+
+.tts-content:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f028";
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
+    font-weight:900;
+}
+
+/** Vocabulaire **/
+.background-vocabulaire {
+    color: white;
+    background-color: #4495fe;
+}
+
+.a-vocabulaire {
+    color: #4495fe;
+}
+
+/** Grammaire **/
+.background-grammaire {
+    color: white;
+    background-color: #5b9481;
+}
+
+.a-grammaire {
+    color: #5b9481;
+}
+
+/** Expression **/
+.background-expression {
+    color: white;
+    background-color: #5988a2;
+}
+
+.a-expression {
+    color: #5988a2;
+}
+
+/** FLE ludique **/
+.background-fle-ludique {
+    color: white;
+    background-color: #545257;
+}
+
+.a-fle-ludique {
+    color: #545257;
+}
+
+/** Prononciation **/
+.background-prononciation {
+    color: white;
+    background-color: #29485a;
+}
+
+.a-prononciation {
+    color: #29485a;
+}
+
+/** Jardin **/
+.background-jardin-dalicja {
+    color: white;
+    background-color: #2f8128;
+}
+
+.a-jardin-dalicja {
+    color: #2f8128;
+}
+
+/** Comprehension **/
+.background-comprehension {
+    color: white;
+    background-color: #4470a9;
+}
+
+.a-jardin-comprehension {
+    color: #4470a9;
+}

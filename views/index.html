@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="card" >
+        <img src="/assets/img/template/couverture.jpg" class="card-img-top" alt="Couverture">
+    </div>
+
+    <br />
+
+    <blockquote class="blockquote mb-0">
+        <p>Apprendre le français c'est facile ! Découvrez mon approche simple et ludique de l'apprentissage du français.</p>
+        <footer class="blockquote-footer">Alicja K.</footer>
+    </blockquote>
+
+    <br />
+
+    <p>Parcourez les catégories ci-dessous pour améliorer votre français :</p>
+
+    <div class="row">
+        {% for categorie in categories %}
+            <div class="col-12 col-sm-4">
+                <a href="{{ categorie.url_categorie }}">
+                    <div class="card">
+                        <img data-src="/assets/img/template/categories/{{ categorie.cover_categorie }}.jpg" class="card-img-top lazyload" alt="Vignette {{ categorie.label_categorie }}">
+                        <noscript>
+                            <img src="/assets/img/template/categories/{{ categorie.cover_categorie }}.jpg" class="card-img-top" alt="Vignette {{ categorie.label_categorie }}">
+                        </noscript>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ categorie.label_categorie }}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    
+{% endblock %}

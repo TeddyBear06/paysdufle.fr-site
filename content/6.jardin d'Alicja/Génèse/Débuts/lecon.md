@@ -1,0 +1,10 @@
+---
+titre: Débuts
+description: Découvrez les débuts de ma carrière professionnelle.
+couverture: images/couverture.jpg
+---
+##### On ne naît pas prof, on le devient...
+
+ Mes années d’études en philologie romane à l’Université Jagellonne de Cracovie (Pologne) étaient marquées par la naissance de mes deux enfants. Cela n’était pas du tout facile de marier mes obligations d’une jeune mère avec la vie étudiante mais grâce au soutien de mes proches et de mes amis, je suis arrivée à réaliser mon rêve d’enfance… En quatrième année d’études, j’ai débuté dans le rôle de l’enseignante de FLE dans une classe d’enfants à l'**Institut français de Cracovie**. J’avais le trac comme une vraie actrice même si Bernadette Ringenbach-Trybus, la directrice des cours à l’époque, n’avait pas de doutes en me confiant ce devoir : “Alicja, courage ! Vous allez vous débrouiller ! Vous pouvez toujours tester vos activités sur vos propres enfants ! “ C’est ainsi que Daniel et Natalia sont devenus mes “cobayes attitrés” mais je pense qu’ils ne m’en veulent pas vu qu’aujourd’hui, ils parlent français tous les deux. Les années passaient, mes élèves grandissaient, je recevais de nouveaux groupes d’ados, d’étudiants, d’adultes… Grâce à mes nouvelles expériences, ma vision de la profession de l’enseignant évoluait elle aussi. J’ai compris que le professeur devrait être plutôt un **metteur en scène** qui fait jouer ses élèves, les principaux acteurs du processus de l’apprentissage, et leur discerner des rôles correspondant à leurs talents et à leurs types de personnalité  J’ai remarqué également qu’il fallait apprendre à nos étudiants non seulement à émettre des messages dans une langue étrangère mais aussi à **écouter** et à **retenir** ce que les autres ont à leur dire… 
+
+ Extrait de témoignage "Ma vie de prof" publié dans "Le Français dans le monde" n°411, pp. 28-29. Consulter le texte intégral de l'article [ici](https://drive.google.com/file/d/16Ku-VjYVhFREezlgKpGNpGh8XsFTPRSv/view?usp=sharing)
