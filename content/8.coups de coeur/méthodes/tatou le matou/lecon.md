@@ -13,6 +13,6 @@ Pour savoir parler français ! Mais avec qui ?... Avec leurs parents qui dans la
 Oui !!! 
 Cette méthode était pour moi un tout premier début de ma merveilleuse aventure dans le domaine de l'enseignement aux plus petits entre 3 et 6 ans. Une aventure pleine de couleurs, d'expériences multisensorielles, de trésors, de preuves d'affection pour ce petit chat-marionnette qui découvre le monde grâce aux enfants qui lui transmettent toutes les informations dans la langue de ce dernier ! 
 
-Regardez les contenus disponibles en ligne sur le site de la maison d'édition Hachette et revenez vers moi à l'adresse : <span class="le_truc_a_modifier" style="margin-left: 5px;">gmail@paysdufle.com</span> (n'oubliez pas de retirer les espaces avant et après le symbole @ ) si vous avez envie d'en savoir plus :) 
+Regardez les contenus disponibles en ligne sur le site de la maison d'édition Hachette et revenez vers moi à l'adresse : <span class="le_truc_a_modifier" style="margin-left: 5px;">gmail@paysdufle.com</span> si vous avez envie d'en savoir plus :) 
 
 [Ressources Tatou le matou](https://www.hachettefle.com/collections/tatou-le-matou)
