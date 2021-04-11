@@ -19,7 +19,7 @@ $.getJSON('/assets/json/liste_pages.json', function(liste_pages) {
 $('.le_truc_a_modifier').each(function () {
     var truc = $(this).text().split('@');
     var machin = truc[1].split('.');
-    $(this).text(machin[0] + ' @ ' + truc[0] + '.com (pensez à retirer les espaces avant et après le symbole @).');
+    $(this).text(machin[0] + ' @ ' + truc[0] + '.com (pensez à retirer les espaces avant et après le symbole @)');
 });
 
 $('.traduirePage').on('click', function() {
