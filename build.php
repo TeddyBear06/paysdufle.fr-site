@@ -24,7 +24,7 @@ use Ehann\RediSearch\Index;
 $redis = (new PredisAdapter())->connect('redis', 6379);
 
 # On créer l'index
-$contenuIndex = new Index($redis);
+$contenuIndex = new Index($redis, 'contenuIndex');
 
 $contenuIndex->addTextField('categorie')
     ->addTextField('nom')
