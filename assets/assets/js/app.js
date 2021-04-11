@@ -1,5 +1,6 @@
 $('#moteurRecherche').select2({
     language: "fr",
+    minimumInputLength: 2,
     placeholder: "Rechercher une thématique ou une leçon...",
     width: '100%',
     ajax: {
