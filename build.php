@@ -14,7 +14,20 @@ require __DIR__ . '/vendor/autoload.php';
 require_once 'functions.php';
 
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Ehann\RedisRaw\PredisAdapter;
 use Spatie\SchemaOrg\Schema;
+use Ehann\RediSearch\Index;
+
+# Client redis
+$redis = (new PredisAdapter())->connect('redis', 6379);
+
+# On créer l'index
+$contenuIndex = new Index($redis);
+
+$contenuIndex->addTextField('categorie')
+    ->addTextField('nom')
+    ->addTextField('url')
+    ->create();
 
 # On instancie Twig avec le répertoire contenant les templates
 $loader = new \Twig\Loader\FilesystemLoader(dirname(__FILE__) . '/views');
