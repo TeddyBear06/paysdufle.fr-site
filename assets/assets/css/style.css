@@ -116,6 +116,16 @@ img[src*='#grande'] {
     background-color: #4470a9;
 }
 
-.a-jardin-comprehension {
+.a-comprehension {
     color: #4470a9;
+}
+
+/** Coups de coeur **/
+.background-coups-de-coeur {
+    color: white;
+    background-color: #791818;
+}
+
+.a-coups-de-coeur {
+    color: #791818;
 }
