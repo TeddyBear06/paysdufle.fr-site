@@ -14,8 +14,10 @@ require __DIR__ . '/vendor/autoload.php';
 require_once 'functions.php';
 
 use Spatie\YamlFrontMatter\YamlFrontMatter;
-use Ehann\RedisRaw\PredisAdapter;
 use Spatie\SchemaOrg\Schema;
+
+use Ehann\RediSearch\Fields\TextField;
+use Ehann\RedisRaw\PredisAdapter;
 use Ehann\RediSearch\Index;
 
 # Client redis
@@ -27,6 +29,7 @@ $contenuIndex = new Index($redis);
 $contenuIndex->addTextField('categorie')
     ->addTextField('nom')
     ->addTextField('url')
+    ->addTextField('type')
     ->create();
 
 # On instancie Twig avec le répertoire contenant les templates
@@ -230,6 +233,12 @@ foreach ($categories as $numero => $categorie) {
             'items' => $items,
             'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'
         ]);
+        $contenuIndex->add([
+            new TextField('categorie', $categorie['label_categorie']),
+            new TextField('nom', $label_sousCategorie),
+            new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
+            new TextField('type', 'sous-categorie'),
+        ]);
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
         #################################
         # 3/3 Création de pages de leçons
@@ -317,6 +326,12 @@ foreach ($categories as $numero => $categorie) {
                     'label' => $leconParsee->titre
                 ];
             }
+            $contenuIndex->add([
+                new TextField('categorie', $categorie['label_categorie']),
+                new TextField('nom', $leconParsee->titre),
+                new TextField('url', $base_lecon_url . 'index.html'),
+                new TextField('type', 'lecon'),
+            ]);
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
             $listeExercices = null;
             $exercices = null;
