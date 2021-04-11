@@ -23,3 +23,11 @@ Dans VSCode :
 - Faire un clic droit dessus
 - Cliquer sur "Restart" (si l'icône est rouge, cliquez sur "Start" car le container n'est pas encore démarré)
 - Attendre environ 10 secondes
+
+## Créer une leçon
+
+Utilisez l'utilitaire de création de leçon :
+
+```
+Double cliquer sur "creer_lecon.cmd"
+```
