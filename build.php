@@ -17,6 +17,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Spatie\SchemaOrg\Schema;
 
 use Ehann\RediSearch\Fields\TextField;
+use Ehann\RediSearch\Fields\TagField;
 use Ehann\RedisRaw\PredisAdapter;
 use Ehann\RediSearch\Index;
 
@@ -29,7 +30,7 @@ $contenuIndex = new Index($redis, 'contenuIndex');
 $contenuIndex->addTextField('categorie')
     ->addTextField('nom')
     ->addTextField('url')
-    ->addTextField('type')
+    ->addTagField('type')
     ->create();
 
 # On instancie Twig avec le répertoire contenant les templates
@@ -237,7 +238,7 @@ foreach ($categories as $numero => $categorie) {
             new TextField('categorie', $categorie['label_categorie']),
             new TextField('nom', $label_sousCategorie),
             new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
-            new TextField('type', 'sous-categorie'),
+            new TagField('type', 'sous-categorie'),
         ]);
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
         #################################
@@ -330,7 +331,7 @@ foreach ($categories as $numero => $categorie) {
                 new TextField('categorie', $categorie['label_categorie']),
                 new TextField('nom', $leconParsee->titre),
                 new TextField('url', $base_lecon_url . 'index.html'),
-                new TextField('type', 'lecon'),
+                new TagField('type', 'lecon'),
             ]);
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
             $listeExercices = null;
