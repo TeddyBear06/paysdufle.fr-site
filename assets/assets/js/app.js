@@ -32,3 +32,10 @@ $('.traduirePage').on('click', function() {
     }
     return false;
 });
+
+$("a[href='#suivez-moi-surprise']").on('click', function() {
+    $.getJSON('/assets/json/liste_lecons.json', function(liste_lecons) {
+        var leconSelectionne = liste_lecons[Math.floor(Math.random()*liste_lecons.length)];
+        window.location.href = leconSelectionne.url;
+    });
+});

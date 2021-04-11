@@ -65,6 +65,15 @@ if (! file_exists($repertoire_build . 'assets/json/liste_pages.json')) {
 }
 $liste_pages = json_decode(file_get_contents($repertoire_build . 'assets/json/liste_pages.json'), true);
 
+###################################################
+# Création du fichier contenant la liste des leçons
+###################################################
+if (! file_exists($repertoire_build . 'assets/json/liste_lecons.json')) {
+    mkdir($repertoire_build . 'assets/json/', 0775);
+    file_put_contents($repertoire_build . 'assets/json/liste_lecons.json', '{}');
+}
+$liste_lecons = json_decode(file_get_contents($repertoire_build . 'assets/json/liste_lecons.json'), true);
+
 ###################################
 # Construction de la page d'accueil
 ###################################
@@ -74,26 +83,38 @@ foreach ($listeCategories as $categorie) {
     $slug_categorie = \Illuminate\Support\Str::slug($categorie);
     $url_categorie = $slug_categorie . '/index.html';
     $label_categorie = ucfirst($categorie);
-    $categories[] = [
+    $categorieArray = [
         'raw_categorie' => $categorie,
         'slug_categorie' => $slug_categorie,
         'cover_categorie' => str_replace(' ', '-', $categorie),
         'url_categorie' => $url_categorie,
         'label_categorie' => $label_categorie
     ];
+    $categories[] = $categorieArray;
+    $categoriesIndex[] = $categorieArray;
     $sitemap[$slug_categorie] = [
         'url' => $url_categorie,
         'label' => $label_categorie
     ];
 }
+// On ajoute une catégorie surprise
+$categoriesIndex[] = [
+    'raw_categorie' => 'Suivez moi',
+    'slug_categorie' => 'suivez-moi',
+    'cover_categorie' => 'suivez-moi',
+    'url_categorie' => '#suivez-moi-surprise',
+    'label_categorie' => 'Suivez moi'
+];
 $accueil = $twig->load('index.html')->render([
-    'categories' => $categories
+    'categories' => $categoriesIndex
 ]);
 file_put_contents($repertoire_build . 'index.html', $accueil);
 $accueil = null;
 $slug_categorie = null;
 $url_categorie = null;
 $label_categorie = null;
+$categoriesIndex = null;
+
 ###################################
 # Construction du contenu dynamique
 ###################################
@@ -273,6 +294,16 @@ foreach ($categories as $numero => $categorie) {
             ]);
             $contenu = str_replace('[TTSdomain]', $tts_domain, $contenu);
             $contenu = str_replace('[MP3domain]', $mp3_domain, $contenu);
+            if (
+                $categorie['slug_categorie'] !== 'jardin-dalicja' 
+                && $categorie['slug_categorie'] !== 'fle-ludique' 
+                && $categorie['slug_categorie'] !== 'recommandations')
+            {
+                $liste_lecons[] = [
+                    'url' => '/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html',
+                    'label' => $leconParsee->titre
+                ];
+            }
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
             $listeExercices = null;
             $exercices = null;
@@ -286,12 +317,14 @@ foreach ($categories as $numero => $categorie) {
     $categorie = $categorie['label_categorie'];
     $liste_pages_total[] = [
         "categorie" => $categorie,
-        "pages" => $liste_pages
+        "pages" => $liste_pages,
     ];
     $liste_pages = null;
 }
 file_put_contents($repertoire_build . 'assets/json/liste_pages.json', json_encode($liste_pages_total, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 $liste_pages_total = null;
+file_put_contents($repertoire_build . 'assets/json/liste_lecons.json', json_encode($liste_lecons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
+$liste_lecons = null;
 
 ##################################
 # Construction des pages statiques
