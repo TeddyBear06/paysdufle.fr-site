@@ -1,19 +1,13 @@
-$.getJSON('/assets/json/liste_pages.json', function(liste_pages) {
-    var options = $('#moteurRecherche');
-    options.append('<option></option>');
-    $.each(liste_pages, function() {
-        var $optgroup = $('<optgroup label="' + this.categorie + '">');
-        $.each(this.pages, function() {
-            $optgroup.append($("<option />").val(this.url).text(this.label));
-        });
-        options.append($optgroup);
-    });
-    $('#moteurRecherche').select2({
-        placeholder: "Rechercher une thématique"
-    });
-    $('#moteurRecherche').on('select2:selecting', function(e) {
-        window.location = '/' + e.params.args.data.id;
-    });
+$('#moteurRecherche').select2({
+    placeholder: "Rechercher une thématique ou une leçon...",
+    ajax: {
+        url: 'https://search.paysdufle.fr/search.php',
+        dataType: 'json'
+    }
+});
+
+$('#moteurRecherche').on('select2:selecting', function(e) {
+    window.location = e.params.args.data.url;
 });
 
 $('.le_truc_a_modifier').each(function () {
