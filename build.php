@@ -297,7 +297,7 @@ foreach ($categories as $numero => $categorie) {
             if (
                 $categorie['slug_categorie'] !== 'jardin-dalicja' 
                 && $categorie['slug_categorie'] !== 'fle-ludique' 
-                && $categorie['slug_categorie'] !== 'recommandations')
+                && $categorie['slug_categorie'] !== 'coups-de-coeur')
             {
                 $liste_lecons[] = [
                     'url' => '/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html',
