@@ -23,8 +23,6 @@ use Ehann\RediSearch\Index;
 
 # Client redis
 $redis = (new PredisAdapter())->connect('redis', 6379);
-
-# On créer l'index
 $contenuIndex = new Index($redis, 'contenuIndex');
 
 $contenuIndex->addTextField('categorie')
@@ -238,7 +236,7 @@ foreach ($categories as $numero => $categorie) {
             new TextField('categorie', $categorie['label_categorie']),
             new TextField('nom', $label_sousCategorie),
             new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
-            new TagField('type', 'sous-categorie'),
+            new TagField('type', 'sousCategorie'),
         ]);
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
         #################################
