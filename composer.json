@@ -5,6 +5,7 @@
         "erusev/parsedown": "^1.7",
         "spatie/yaml-front-matter": "^2.0",
         "twig/twig": "^3.0",
-        "spatie/schema-org": "^3.3.0"
+        "spatie/schema-org": "^3.3.0",
+        "league/climate": "^3.7"
     }
 }
