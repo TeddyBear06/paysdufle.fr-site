@@ -2,20 +2,7 @@ $('#moteurRecherche').select2({
     placeholder: "Rechercher une thématique ou une leçon...",
     ajax: {
         url: 'https://search.paysdufle.fr/search.php',
-        dataType: 'json',
-        processResults: function(data) 
-        {
-            return 
-            {
-                results: $.map(data, function(obj) {
-                    return {
-                        id: obj.id,
-                        text: obj.text,
-                        url: obj.url,
-                    };
-                })
-            };
-        },
+        dataType: 'json'
     }
 });
 
