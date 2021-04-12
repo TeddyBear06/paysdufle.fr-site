@@ -8,6 +8,7 @@
         "spatie/schema-org": "^3.3.0",
         "league/climate": "^3.7",
         "ethanhann/redisearch-php": "^1.9",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "rap2hpoutre/remove-stop-words": "^0.2.0"
     }
 }

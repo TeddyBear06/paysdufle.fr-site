@@ -13,6 +13,8 @@ require __DIR__ . '/vendor/autoload.php';
 # On inclue le fichier avec les fonctions necéssaires au site
 require_once 'functions.php';
 
+use function Rap2hpoutre\RemoveStopWords\remove_stop_words;
+
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Spatie\SchemaOrg\Schema;
 
@@ -41,12 +43,19 @@ if (isset($argv[1]) && $argv[1] == 'local') {
 if ($utiliserRedis) {
     # Client redis
     $redis = (new PredisAdapter())->connect('redis', 6379);
-    $contenuIndex = new Index($redis, 'contenuIndex');
 
+    $contenuIndex = new Index($redis, 'contenuIndex');
     $contenuIndex->addTextField('categorie')
         ->addTextField('nom')
         ->addTextField('url')
         ->addTagField('type')
+        ->create();
+
+    $leconIndex = new Index($redis, 'leconIndex');
+    $leconIndex->addTextField('categorie')
+        ->addTextField('titre')
+        ->addTextField('contenuLecon')
+        ->addTextField('url')
         ->create();
 }
 
@@ -337,6 +346,12 @@ foreach ($categories as $numero => $categorie) {
                     new TextField('nom', $leconParsee->titre),
                     new TextField('url', $base_lecon_url . 'index.html'),
                     new TagField('type', 'lecon'),
+                ]);
+                $leconIndex->add([
+                    new TextField('categorie', $categorie['label_categorie']),
+                    new TextField('titre', $leconParsee->titre),
+                    new TextField('contenuLecon', remove_stop_words(strip_tags($p->text($leconParsee->body())), 'fr')),
+                    new TextField('url', $base_lecon_url . 'index.html'),
                 ]);
             }
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
