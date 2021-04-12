@@ -40,16 +40,22 @@ if (isset($argv[1]) && $argv[1] == 'local') {
     $utiliserRedis = true;
 }
 
+$motsClefsImportants = [
+    'Hachette', 'Montessori', 'multisensorielles', 'interpersonnelle', '"Intelligences'
+    interpersonnelle, intrapersonnelle, visuo-spatiale, corporelle-kinesthésique, verbo-linguistique, naturaliste
+    CECRL 
+];
+
 if ($utiliserRedis) {
     # Client redis
     $redis = (new PredisAdapter())->connect('redis', 6379);
 
     $contenuIndex = new Index($redis, 'contenuIndex');
     $contenuIndex->addTextField('categorie')
-        ->addTextField('nom')
-        ->addTextField('contenuLecon')
+        ->addTextField('label')
         ->addTextField('url')
         ->addTagField('type')
+        ->addTagField('tag')
         ->create();
 }
 
@@ -242,10 +248,10 @@ foreach ($categories as $numero => $categorie) {
         if ($utiliserRedis) {
             $contenuIndex->add([
                 new TextField('categorie', $categorie['label_categorie']),
-                new TextField('nom', $label_sousCategorie),
-                new TextField('contenuLecon', null),
+                new TextField('label', $label_sousCategorie),
                 new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
                 new TagField('type', 'sousCategorie'),
+                new TagField('tag', null),
             ]);
         }
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
@@ -338,18 +344,23 @@ foreach ($categories as $numero => $categorie) {
             if ($utiliserRedis) {
                 $contenuIndex->add([
                     new TextField('categorie', $categorie['label_categorie']),
-                    new TextField('nom', $leconParsee->titre),
-                    new TextField('contenuLecon', null),
+                    new TextField('label', $leconParsee->titre),
                     new TextField('url', $base_lecon_url . 'index.html'),
                     new TagField('type', 'lecon'),
+                    new TagField('tag', null),
                 ]);
-                $contenuIndex->add([
-                    new TextField('categorie', $categorie['label_categorie']),
-                    new TextField('nom', $leconParsee->titre),
-                    new TextField('contenuLecon', remove_stop_words(strip_tags($p->text($leconParsee->body())), 'fr')),
-                    new TextField('url', $base_lecon_url . 'index.html'),
-                    new TagField('type', 'contenuLecon'),
-                ]);
+                if ($leconParsee->tags !== null) {
+                    $tags = explode(',', $leconParsee->tags);
+                    foreach ($tags as $tag) {
+                        $contenuIndex->add([
+                            new TextField('categorie', $categorie['label_categorie']),
+                            new TextField('label', $leconParsee->titre),
+                            new TextField('url', $base_lecon_url . 'index.html'),
+                            new TagField('type', 'contenuLecon'),
+                            new TagField('tag', $tag),
+                        ]);
+                    }
+                }
             }
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
             $listeExercices = null;

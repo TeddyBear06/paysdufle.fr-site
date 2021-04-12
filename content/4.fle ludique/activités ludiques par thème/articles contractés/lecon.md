@@ -2,13 +2,14 @@
 titre: Articles contractés avec la préposition "à"
 description: Execrcie ludique pour s'entraîner à bien utiliser les articles contractés.
 couverture: images/couverture.jpg
+tags: Intelligences multiples, interpersonnelle, intrapersonnelle, visuo-spatiale, corporelle-kinesthésique, verbo-linguistique, naturaliste
 ---
+
 ##### Comment rendre ludique et attrayant un simple exercice de grammaire ?
 
 Afin de s'entraîner à utilser correctement les articles contractés précédés de la préposition "à", il ne suffit pas de bouger sa tête... Nous allons bouger tout notre corps !
 
 Vous avez bien introduit/révisé [les noms des parties du corps](https://paysdufle.fr/vocabulaire/corps-et-sante/parties-du-corps/index.html), vous avez bien insisté sur [le genre](https://paysdufle.fr/grammaire/genre/les-parties-du-corps/index.html) de ces dernières, vous avez expliqué la règle concernant [les articles contractés avec la préposition "à"](https://paysdufle.fr/grammaire/articles-contractes/articles-contractes-avec-la-preposition-a/index.html). Il est temps de passer aux exercices de réinvestissement mais vous voyez que vos élèves ne sont plus concentrés sur la leçon: certains bâillent, d'autres ont l'air de somnoler sur leur cahier, Anne demande la permission d'aller aux toilettes... Tout le monde debout ! Il est temps de se réveiller en faisant de la grammaire !
-
 
 ##### Activité
 
