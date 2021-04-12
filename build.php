@@ -40,12 +40,6 @@ if (isset($argv[1]) && $argv[1] == 'local') {
     $utiliserRedis = true;
 }
 
-$motsClefsImportants = [
-    'Hachette', 'Montessori', 'multisensorielles', 'interpersonnelle', '"Intelligences'
-    interpersonnelle, intrapersonnelle, visuo-spatiale, corporelle-kinesthésique, verbo-linguistique, naturaliste
-    CECRL 
-];
-
 if ($utiliserRedis) {
     # Client redis
     $redis = (new PredisAdapter())->connect('redis', 6379);
