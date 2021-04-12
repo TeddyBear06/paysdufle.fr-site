@@ -358,7 +358,7 @@ foreach ($categories as $numero => $categorie) {
                                     new TextField('url', $base_lecon_url . 'index.html'),
                                     new TagField('type', 'contenuLecon'),
                                     new TagField('tag', $subTag),
-                                    new TextField('tagComplet', $tag),
+                                    new TextField('tagComplet', $leconParsee->tags),
                                 ]);
                             }
                         } else {
@@ -368,7 +368,7 @@ foreach ($categories as $numero => $categorie) {
                                 new TextField('url', $base_lecon_url . 'index.html'),
                                 new TagField('type', 'contenuLecon'),
                                 new TagField('tag', $leconParsee->tags),
-                                new TextField('tagComplet', $tag),
+                                new TextField('tagComplet', $leconParsee->tags),
                             ]);
                         }
                     }
