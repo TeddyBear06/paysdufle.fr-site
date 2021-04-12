@@ -21,16 +21,6 @@ use Ehann\RediSearch\Fields\TagField;
 use Ehann\RedisRaw\PredisAdapter;
 use Ehann\RediSearch\Index;
 
-# Client redis
-$redis = (new PredisAdapter())->connect('redis', 6379);
-$contenuIndex = new Index($redis, 'contenuIndex');
-
-$contenuIndex->addTextField('categorie')
-    ->addTextField('nom')
-    ->addTextField('url')
-    ->addTagField('type')
-    ->create();
-
 # On instancie Twig avec le répertoire contenant les templates
 $loader = new \Twig\Loader\FilesystemLoader(dirname(__FILE__) . '/views');
 $twig = new \Twig\Environment($loader, [
@@ -42,8 +32,22 @@ $p = new Parsedown();
 
 if (isset($argv[1]) && $argv[1] == 'local') {
     $repertoire_source = '/usr/paysdufle.fr/';
+    $utiliserRedis = false;
 } else {
     $repertoire_source = '/usr/paysdufle.fr/src/';
+    $utiliserRedis = true;
+}
+
+if ($utiliserRedis) {
+    # Client redis
+    $redis = (new PredisAdapter())->connect('redis', 6379);
+    $contenuIndex = new Index($redis, 'contenuIndex');
+
+    $contenuIndex->addTextField('categorie')
+        ->addTextField('nom')
+        ->addTextField('url')
+        ->addTagField('type')
+        ->create();
 }
 
 $repertoire_build = '/usr/paysdufle.fr/build/';
@@ -232,12 +236,14 @@ foreach ($categories as $numero => $categorie) {
             'items' => $items,
             'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'
         ]);
-        $contenuIndex->add([
-            new TextField('categorie', $categorie['label_categorie']),
-            new TextField('nom', $label_sousCategorie),
-            new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
-            new TagField('type', 'sousCategorie'),
-        ]);
+        if ($utiliserRedis) {
+            $contenuIndex->add([
+                new TextField('categorie', $categorie['label_categorie']),
+                new TextField('nom', $label_sousCategorie),
+                new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
+                new TagField('type', 'sousCategorie'),
+            ]);
+        }
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
         #################################
         # 3/3 Création de pages de leçons
@@ -325,12 +331,14 @@ foreach ($categories as $numero => $categorie) {
                     'label' => $leconParsee->titre
                 ];
             }
-            $contenuIndex->add([
-                new TextField('categorie', $categorie['label_categorie']),
-                new TextField('nom', $leconParsee->titre),
-                new TextField('url', $base_lecon_url . 'index.html'),
-                new TagField('type', 'lecon'),
-            ]);
+            if ($utiliserRedis) {
+                $contenuIndex->add([
+                    new TextField('categorie', $categorie['label_categorie']),
+                    new TextField('nom', $leconParsee->titre),
+                    new TextField('url', $base_lecon_url . 'index.html'),
+                    new TagField('type', 'lecon'),
+                ]);
+            }
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
             $listeExercices = null;
             $exercices = null;
