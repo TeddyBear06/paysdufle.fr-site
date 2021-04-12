@@ -50,6 +50,7 @@ if ($utiliserRedis) {
         ->addTextField('url')
         ->addTagField('type')
         ->addTagField('tag')
+        ->addTextField('tagComplet')
         ->create();
 }
 
@@ -246,6 +247,7 @@ foreach ($categories as $numero => $categorie) {
                 new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
                 new TagField('type', 'sousCategorie'),
                 new TagField('tag', null),
+                new TextField('tagComplet', null),
             ]);
         }
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
@@ -342,6 +344,7 @@ foreach ($categories as $numero => $categorie) {
                     new TextField('url', $base_lecon_url . 'index.html'),
                     new TagField('type', 'lecon'),
                     new TagField('tag', null),
+                    new TextField('tagComplet', null),
                 ]);
                 if ($leconParsee->tags !== null) {
                     $tags = explode(',', $leconParsee->tags);
@@ -355,6 +358,7 @@ foreach ($categories as $numero => $categorie) {
                                     new TextField('url', $base_lecon_url . 'index.html'),
                                     new TagField('type', 'contenuLecon'),
                                     new TagField('tag', $subTag),
+                                    new TextField('tagComplet', $tag),
                                 ]);
                             }
                         } else {
@@ -364,6 +368,7 @@ foreach ($categories as $numero => $categorie) {
                                 new TextField('url', $base_lecon_url . 'index.html'),
                                 new TagField('type', 'contenuLecon'),
                                 new TagField('tag', $leconParsee->tags),
+                                new TextField('tagComplet', $tag),
                             ]);
                         }
                     }
