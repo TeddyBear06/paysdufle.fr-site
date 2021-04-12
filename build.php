@@ -350,7 +350,7 @@ foreach ($categories as $numero => $categorie) {
                 $leconIndex->add([
                     new TextField('categorie', $categorie['label_categorie']),
                     new TextField('titre', $leconParsee->titre),
-                    new TextField('contenuLecon', preg_replace("/[^a-zA-Z0-9]+/", "", remove_stop_words(strip_tags($p->text($leconParsee->body())), 'fr'))),
+                    new TextField('contenuLecon', preg_replace("/[^a-z0-9\s]/", "", remove_stop_words(strip_tags($p->text($leconParsee->body())), 'fr'))),
                     new TextField('url', $base_lecon_url . 'index.html'),
                 ]);
             }
