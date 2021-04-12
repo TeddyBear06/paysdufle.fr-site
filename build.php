@@ -341,7 +341,7 @@ foreach ($categories as $numero => $categorie) {
                     new TextField('label', $leconParsee->titre),
                     new TextField('url', $base_lecon_url . 'index.html'),
                     new TagField('type', 'lecon'),
-                    new TagField('tag', $tag),
+                    new TagField('tag', null),
                 ]);
                 if ($leconParsee->tags !== null) {
                     $contenuIndex->add([
