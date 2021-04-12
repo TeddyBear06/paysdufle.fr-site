@@ -240,13 +240,18 @@ foreach ($categories as $numero => $categorie) {
             'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'
         ]);
         if ($utiliserRedis) {
-            $contenuIndex->add([
-                new TextField('categorie', $categorie['label_categorie']),
-                new TextField('label', $label_sousCategorie),
-                new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
-                new TagField('type', 'sousCategorie'),
-                new TagField('tag', null),
-            ]);
+            $tags = explode(' ', str_replace(['\'', '"', ',' , ';', '<', '>'], '', remove_stop_words($label_sousCategorie)));
+            foreach ($tags as $tag) {
+                if (strlen($tag) >= 3) {
+                    $contenuIndex->add([
+                        new TextField('categorie', $categorie['label_categorie']),
+                        new TextField('label', $label_sousCategorie),
+                        new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
+                        new TagField('type', 'sousCategorie'),
+                        new TagField('tag', $tag),
+                    ]);
+                }
+            }
         }
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
         #################################
@@ -336,13 +341,18 @@ foreach ($categories as $numero => $categorie) {
                 ];
             }
             if ($utiliserRedis) {
-                $contenuIndex->add([
-                    new TextField('categorie', $categorie['label_categorie']),
-                    new TextField('label', $leconParsee->titre),
-                    new TextField('url', $base_lecon_url . 'index.html'),
-                    new TagField('type', 'lecon'),
-                    new TagField('tag', null),
-                ]);
+                $tags = explode(' ', str_replace(['\'', '"', ',' , ';', '<', '>'], '', remove_stop_words($leconParsee->titre)));
+                foreach ($tags as $tag) {
+                    if (strlen($tag) >= 3) {
+                        $contenuIndex->add([
+                            new TextField('categorie', $categorie['label_categorie']),
+                            new TextField('label', $leconParsee->titre),
+                            new TextField('url', $base_lecon_url . 'index.html'),
+                            new TagField('type', 'lecon'),
+                            new TagField('tag', $tag),
+                        ]);
+                    }
+                }
                 if ($leconParsee->tags !== null) {
                     $tags = explode(',', $leconParsee->tags);
                     foreach ($tags as $tag) {
