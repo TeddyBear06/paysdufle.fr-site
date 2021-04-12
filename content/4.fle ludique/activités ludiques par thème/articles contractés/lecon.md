@@ -2,7 +2,7 @@
 titre: Articles contractés avec la préposition "à"
 description: Execrcie ludique pour s'entraîner à bien utiliser les articles contractés.
 couverture: images/couverture.jpg
-tags: Intelligences multiples, interpersonnelle, intrapersonnelle, visuo-spatiale, corporelle-kinesthésique, verbo-linguistique, naturaliste
+tags: Intelligences multiples, interpersonnelle, intrapersonnelle, visuo-spatiale, visuo, spatiale, corporelle-kinesthésique, corporelle, kinesthésique, verbo-linguistique, naturaliste
 ---
 
 ##### Comment rendre ludique et attrayant un simple exercice de grammaire ?
