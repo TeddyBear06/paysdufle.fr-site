@@ -344,13 +344,29 @@ foreach ($categories as $numero => $categorie) {
                     new TagField('tag', null),
                 ]);
                 if ($leconParsee->tags !== null) {
-                    $contenuIndex->add([
-                        new TextField('categorie', $categorie['label_categorie']),
-                        new TextField('label', $leconParsee->titre),
-                        new TextField('url', $base_lecon_url . 'index.html'),
-                        new TagField('type', 'contenuLecon'),
-                        new TagField('tag', $leconParsee->tags),
-                    ]);
+                    $tags = explode(',', $leconParsee->tags);
+                    foreach ($tags as $tag) {
+                        if (str_contains($tag, '-')) {
+                            $subTags = explode('-', $tag);
+                            foreach ($subTags as $subTag) {
+                                $contenuIndex->add([
+                                    new TextField('categorie', $categorie['label_categorie']),
+                                    new TextField('label', $leconParsee->titre),
+                                    new TextField('url', $base_lecon_url . 'index.html'),
+                                    new TagField('type', 'contenuLecon'),
+                                    new TagField('tag', $subTag),
+                                ]);
+                            }
+                        } else {
+                            $contenuIndex->add([
+                                new TextField('categorie', $categorie['label_categorie']),
+                                new TextField('label', $leconParsee->titre),
+                                new TextField('url', $base_lecon_url . 'index.html'),
+                                new TagField('type', 'contenuLecon'),
+                                new TagField('tag', $leconParsee->tags),
+                            ]);
+                        }
+                    }
                 }
             }
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
