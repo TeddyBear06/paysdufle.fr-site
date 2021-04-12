@@ -1,3 +1,17 @@
+function markMatch (text, term) {
+    var match = text.toUpperCase().indexOf(term.toUpperCase());
+    var $result = $('<span></span>');
+    if (match < 0) {
+        return $result.text(text);
+    }
+    $result.text(text.substring(0, match));
+    var $match = $('<span class="select2-rendered__match"></span>');
+    $match.text(text.substring(match, match + term.length));
+    $result.append($match);
+    $result.append(text.substring(match + term.length));
+    return $result;
+}
+
 $('#moteurRecherche').select2({
     language: "fr",
     minimumInputLength: 2,
@@ -6,6 +20,14 @@ $('#moteurRecherche').select2({
     ajax: {
         url: 'https://search.paysdufle.fr/search.php',
         dataType: 'json'
+    },
+    templateResult: function (item) {
+        if (item.loading) {
+            return item.text;
+        }
+        var term = query.term || '';
+        var $result = markMatch(item.text, term);
+        return $result;
     }
 });
 
