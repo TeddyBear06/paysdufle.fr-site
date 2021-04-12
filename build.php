@@ -34,7 +34,7 @@ $p = new Parsedown();
 
 if (isset($argv[1]) && $argv[1] == 'local') {
     $repertoire_source = '/usr/paysdufle.fr/';
-    $utiliserRedis = true;
+    $utiliserRedis = false;
 } else {
     $repertoire_source = '/usr/paysdufle.fr/src/';
     $utiliserRedis = true;
