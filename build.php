@@ -47,15 +47,9 @@ if ($utiliserRedis) {
     $contenuIndex = new Index($redis, 'contenuIndex');
     $contenuIndex->addTextField('categorie')
         ->addTextField('nom')
-        ->addTextField('url')
-        ->addTagField('type')
-        ->create();
-
-    $leconIndex = new Index($redis, 'leconIndex');
-    $leconIndex->addTextField('categorie')
-        ->addTextField('titre')
         ->addTextField('contenuLecon')
         ->addTextField('url')
+        ->addTagField('type')
         ->create();
 }
 
@@ -249,6 +243,7 @@ foreach ($categories as $numero => $categorie) {
             $contenuIndex->add([
                 new TextField('categorie', $categorie['label_categorie']),
                 new TextField('nom', $label_sousCategorie),
+                new TextField('contenuLecon', null),
                 new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
                 new TagField('type', 'sousCategorie'),
             ]);
@@ -344,14 +339,16 @@ foreach ($categories as $numero => $categorie) {
                 $contenuIndex->add([
                     new TextField('categorie', $categorie['label_categorie']),
                     new TextField('nom', $leconParsee->titre),
+                    new TextField('contenuLecon', null),
                     new TextField('url', $base_lecon_url . 'index.html'),
                     new TagField('type', 'lecon'),
                 ]);
-                $leconIndex->add([
+                $contenuIndex->add([
                     new TextField('categorie', $categorie['label_categorie']),
-                    new TextField('titre', $leconParsee->titre),
+                    new TextField('nom', $leconParsee->titre),
                     new TextField('contenuLecon', remove_stop_words(strip_tags($p->text($leconParsee->body())), 'fr')),
                     new TextField('url', $base_lecon_url . 'index.html'),
+                    new TagField('type', 'contenuLecon'),
                 ]);
             }
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
