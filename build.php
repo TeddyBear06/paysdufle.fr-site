@@ -356,13 +356,6 @@ foreach ($categories as $numero => $categorie) {
                 if ($leconParsee->tags !== null) {
                     $tags = explode(',', $leconParsee->tags);
                     foreach ($tags as $tag) {
-                        $contenuIndex->add([
-                            new TextField('categorie', $categorie['label_categorie']),
-                            new TextField('label', $leconParsee->titre),
-                            new TextField('url', $base_lecon_url . 'index.html'),
-                            new TagField('type', 'contenuLecon'),
-                            new TagField('tag', $tag),
-                        ]);
                         if (str_contains($tag, '-')) {
                             $subTags = explode('-', $tag);
                             foreach ($subTags as $subTag) {
@@ -374,6 +367,14 @@ foreach ($categories as $numero => $categorie) {
                                     new TagField('tag', $subTag),
                                 ]);
                             }
+                        } else {
+                            $contenuIndex->add([
+                                new TextField('categorie', $categorie['label_categorie']),
+                                new TextField('label', $leconParsee->titre),
+                                new TextField('url', $base_lecon_url . 'index.html'),
+                                new TagField('type', 'contenuLecon'),
+                                new TagField('tag', $tag),
+                            ]);
                         }
                     }
                 }
