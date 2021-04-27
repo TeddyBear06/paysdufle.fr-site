@@ -7,7 +7,6 @@
         "twig/twig": "^3.0",
         "spatie/schema-org": "^3.3.0",
         "league/climate": "^3.7",
-        "rap2hpoutre/remove-stop-words": "^0.2.0",
         "meilisearch/meilisearch-php": "^0.17.2",
         "guzzlehttp/guzzle": "^7.3",
         "http-interop/http-factory-guzzle": "1.0"

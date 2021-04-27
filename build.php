@@ -14,7 +14,7 @@ require __DIR__ . '/vendor/autoload.php';
 # On inclue le fichier avec les fonctions necéssaires au site
 require_once 'functions.php';
 
-use function Rap2hpoutre\RemoveStopWords\remove_stop_words;
+use Illuminate\Support\Str;
 
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Spatie\SchemaOrg\Schema;
@@ -91,7 +91,7 @@ $liste_lecons = json_decode(file_get_contents($repertoire_build . 'assets/json/l
 $listeCategories = array_diff(scandir($repertoire_source . 'content/'), array('..', '.'));
 foreach ($listeCategories as $categorie) {
     $categorie = explode('.', $categorie)[1];
-    $slug_categorie = \Illuminate\Support\Str::slug($categorie);
+    $slug_categorie = Str::slug($categorie);
     $url_categorie = $slug_categorie . '/index.html';
     $label_categorie = ucfirst($categorie);
     $categorieArray = [
@@ -331,6 +331,7 @@ foreach ($categories as $numero => $categorie) {
                 'id' => $indexLecon,
                 'categorie' => $categorie['label_categorie'],
                 'label' => $leconParsee->titre,
+                'contenu' => remove_stop_words(Str::limit(strip_tags($contenuLecon), 1000, '')),
                 'url' => $base_lecon_url . 'index.html',
             ];
             if ($leconParsee->tags !== null) {
