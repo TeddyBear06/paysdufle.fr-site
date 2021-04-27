@@ -6,6 +6,7 @@ $debut_build = microtime(true);
 $app_env = $_ENV["APP_ENV"] ?? 'local';
 $tts_domain = $_ENV["TTS_DOMAIN"] ?? 'tts.localhost';
 $mp3_domain = $_ENV["MP3_DOMAIN"] ?? 'mp3.localhost';
+$meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"];
 
 # On charge les librairies
 require __DIR__ . '/vendor/autoload.php';
@@ -18,10 +19,12 @@ use function Rap2hpoutre\RemoveStopWords\remove_stop_words;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Spatie\SchemaOrg\Schema;
 
-use Ehann\RediSearch\Fields\TextField;
-use Ehann\RediSearch\Fields\TagField;
-use Ehann\RedisRaw\PredisAdapter;
-use Ehann\RediSearch\Index;
+use MeiliSearch\Client;
+
+$client = new Client('http://meilisearch:7700', $meilisearch_master_key);
+
+$subCategoriesIndex = $client->index('subCategories');
+$lessonsIndex = $client->index('lessons');
 
 # On instancie Twig avec le répertoire contenant les templates
 $loader = new \Twig\Loader\FilesystemLoader(dirname(__FILE__) . '/views');
@@ -34,24 +37,8 @@ $p = new Parsedown();
 
 if (isset($argv[1]) && $argv[1] == 'local') {
     $repertoire_source = '/usr/paysdufle.fr/';
-    $utiliserRedis = false;
 } else {
     $repertoire_source = '/usr/paysdufle.fr/src/';
-    $utiliserRedis = true;
-}
-
-if ($utiliserRedis) {
-    # Client redis
-    $redis = (new PredisAdapter())->connect('redis', 6379);
-
-    $contenuIndex = new Index($redis, 'contenuIndex');
-    $contenuIndex->addTextField('categorie')
-        ->addTextField('label')
-        ->addTextField('url')
-        ->addTagField('type')
-        ->addTagField('tag')
-        ->addTextField('tagComplet')
-        ->create();
 }
 
 $repertoire_build = '/usr/paysdufle.fr/build/';
@@ -240,16 +227,11 @@ foreach ($categories as $numero => $categorie) {
             'items' => $items,
             'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'
         ]);
-        if ($utiliserRedis) {
-            $contenuIndex->add([
-                new TextField('categorie', $categorie['label_categorie']),
-                new TextField('label', $label_sousCategorie),
-                new TextField('url', 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'),
-                new TagField('type', 'sousCategorie'),
-                new TagField('tag', null),
-                new TextField('tagComplet', null),
-            ]);
-        }
+        $subCategoriesIndexDocuments[] = [
+            'categorie' => $categorie['label_categorie'],
+            'label' => $label_sousCategorie,
+            'url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html',
+        ];
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
         #################################
         # 3/3 Création de pages de leçons
@@ -337,50 +319,29 @@ foreach ($categories as $numero => $categorie) {
                     'label' => $leconParsee->titre
                 ];
             }
-            if ($utiliserRedis) {
-                $contenuIndex->add([
-                    new TextField('categorie', $categorie['label_categorie']),
-                    new TextField('label', $leconParsee->titre),
-                    new TextField('url', $base_lecon_url . 'index.html'),
-                    new TagField('type', 'lecon'),
-                    new TagField('tag', null),
-                    new TextField('tagComplet', null),
-                ]);
-                if ($leconParsee->tags !== null) {
-                    $tags = explode(',', $leconParsee->tags);
-                    foreach ($tags as $tag) {
-                        if (str_contains($tag, '-')) {
-                            $subTags = explode('-', $tag);
-                            foreach ($subTags as $subTag) {
-                                $contenuIndex->add([
-                                    new TextField('categorie', $categorie['label_categorie']),
-                                    new TextField('label', $leconParsee->titre),
-                                    new TextField('url', $base_lecon_url . 'index.html'),
-                                    new TagField('type', 'contenuLecon'),
-                                    new TagField('tag', $subTag),
-                                    new TextField('tagComplet', $tag),
-                                ]);
-                            }
-                        } else {
-                            $contenuIndex->add([
-                                new TextField('categorie', $categorie['label_categorie']),
-                                new TextField('label', $leconParsee->titre),
-                                new TextField('url', $base_lecon_url . 'index.html'),
-                                new TagField('type', 'contenuLecon'),
-                                new TagField('tag', $leconParsee->tags),
-                                new TextField('tagComplet', $tag),
-                            ]);
-                        }
-                    }
-                }
+            $document = [
+                'categorie' => $categorie['label_categorie'],
+                'label' => $leconParsee->titre,
+                'url' => $base_lecon_url . 'index.html',
+                'lecon_id' => md5($lecon['slug_lecon']),
+                'tags' => [],
+            ];
+            if ($leconParsee->tags !== null) {
+                $document['tags'] = explode(',', $leconParsee->tags);
             }
+            $lessonsIndexDocuments[] = $document;
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
             $listeExercices = null;
             $exercices = null;
+            $document = null;
         }
+        $lessonsIndex->addDocuments($lessonsIndexDocuments);
+        $lessonsIndexDocuments = null;
         $lecons = null;
         $leconsFormatees = null;
     }
+    $subCategoriesIndex->addDocuments($subCategoriesIndexDocuments);
+    $subCategoriesIndexDocuments = null;
     $sousCategories = null;
     $sousCategoriesFormatees = null;
     $contenu = null;
