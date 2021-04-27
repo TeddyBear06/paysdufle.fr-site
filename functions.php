@@ -267,7 +267,7 @@ function inject_tags($texte, $tags)
     // Concatenate tags with tokenized text
     $result = implode(' ', $tags).' '.$texte;
 
-    return Str::words($result, 35, '');
+    return Str::words($result, 1000, '');
 }
 
 /**
@@ -307,7 +307,7 @@ function prepare_tokenisation($text, $remove_accents = true)
     // Remove sides extra spaces
     $result = ltrim(rtrim($result));
 
-    return Str::words($result, 35, '');
+    return Str::words($result, 1000, '');
 }
 
 /**
