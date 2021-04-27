@@ -237,7 +237,9 @@ foreach ($categories as $numero => $categorie) {
         $subCategoriesIndexDocuments[] = [
             'id' => $indexSousCategorie,
             'categorie' => $categorie['label_categorie'],
+            'categorie_tokenized' => prepare_tokenisation($categorie['label_categorie']),
             'label' => $label_sousCategorie,
+            'label_tokenized' => prepare_tokenisation($label_sousCategorie),
             'url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html',
         ];
         file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
@@ -330,8 +332,10 @@ foreach ($categories as $numero => $categorie) {
             $document = [
                 'id' => $indexLecon,
                 'categorie' => $categorie['label_categorie'],
+                'categorie_tokenized' => prepare_tokenisation($categorie['label_categorie']),
                 'label' => $leconParsee->titre,
-                'contenu' => remove_stop_words(Str::limit(strip_tags($contenuLecon), 1000, '')),
+                'label_tokenized' => prepare_tokenisation($leconParsee->titre),
+                'contenu_tokenized' => prepare_tokenisation(Str::limit(strip_tags($contenuLecon), 1000, '')),
                 'url' => $base_lecon_url . 'index.html',
             ];
             if ($leconParsee->tags !== null) {
