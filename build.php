@@ -335,8 +335,6 @@ foreach ($categories as $numero => $categorie) {
             $exercices = null;
             $document = null;
         }
-        $lessonsIndex->addDocuments($lessonsIndexDocuments);
-        $lessonsIndexDocuments = null;
         $lecons = null;
         $leconsFormatees = null;
     }
@@ -352,6 +350,8 @@ foreach ($categories as $numero => $categorie) {
     ];
     $liste_pages = null;
 }
+$lessonsIndex->addDocuments($lessonsIndexDocuments);
+$lessonsIndexDocuments = null;
 file_put_contents($repertoire_build . 'assets/json/liste_pages.json', json_encode($liste_pages_total, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 $liste_pages_total = null;
 file_put_contents($repertoire_build . 'assets/json/liste_lecons.json', json_encode($liste_lecons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
