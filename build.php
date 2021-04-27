@@ -228,6 +228,7 @@ foreach ($categories as $numero => $categorie) {
             'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'
         ]);
         $subCategoriesIndexDocuments[] = [
+            'id' => md5($slug_sousCategorie),
             'categorie' => $categorie['label_categorie'],
             'label' => $label_sousCategorie,
             'url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html',
@@ -320,11 +321,10 @@ foreach ($categories as $numero => $categorie) {
                 ];
             }
             $document = [
+                'id' => md5($lecon['slug_lecon']),
                 'categorie' => $categorie['label_categorie'],
                 'label' => $leconParsee->titre,
                 'url' => $base_lecon_url . 'index.html',
-                'lecon_id' => md5($lecon['slug_lecon']),
-                'tags' => [],
             ];
             if ($leconParsee->tags !== null) {
                 $document['tags'] = explode(',', $leconParsee->tags);
