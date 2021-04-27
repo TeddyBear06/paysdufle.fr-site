@@ -267,8 +267,7 @@ function inject_tags($texte, $tags)
     // Concatenate tags with tokenized text
     $result = implode(' ', $tags).' '.$texte;
 
-    // The most long word in french is 25 caracters so (25 x 30 = 750 + 30 more spaces = 780)
-    return Str::words($result, 30, '');
+    return Str::words($result, 35, '');
 }
 
 /**
@@ -308,7 +307,7 @@ function prepare_tokenisation($text, $remove_accents = true)
     // Remove sides extra spaces
     $result = ltrim(rtrim($result));
 
-    return Str::words($result, 30, '');
+    return Str::words($result, 35, '');
 }
 
 /**
