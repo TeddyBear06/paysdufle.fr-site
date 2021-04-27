@@ -339,7 +339,7 @@ foreach ($categories as $numero => $categorie) {
                 'url' => $base_lecon_url . 'index.html',
             ];
             if ($leconParsee->tags !== null) {
-                $document['tags'] = explode(',', $leconParsee->tags);
+                $document['contenu_tokenized'] = inject_tags($document['contenu_tokenized'], explode(',', $leconParsee->tags));
             }
             $lessonsIndexDocuments[] = $document;
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
