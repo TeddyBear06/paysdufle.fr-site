@@ -324,6 +324,7 @@ function remove_stop_words($text)
 
     $stopWords = array_merge($stopWords, $customStopWords);
 
+    // Regex idea from https://gist.github.com/keithmorris/4155220
     return preg_replace('/\b('.implode('|', $stopWords).')\b/', '', $text);
 }
 
