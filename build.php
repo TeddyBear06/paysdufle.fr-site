@@ -6,7 +6,7 @@ $debut_build = microtime(true);
 $app_env = $_ENV["APP_ENV"] ?? 'local';
 $tts_domain = $_ENV["TTS_DOMAIN"] ?? 'tts.localhost';
 $mp3_domain = $_ENV["MP3_DOMAIN"] ?? 'mp3.localhost';
-$meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"];
+$meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
 
 # On charge les librairies
 require __DIR__ . '/vendor/autoload.php';
@@ -21,10 +21,11 @@ use Spatie\SchemaOrg\Schema;
 
 use MeiliSearch\Client;
 
-$client = new Client('http://meilisearch:7700', $meilisearch_master_key);
-
-$subCategoriesIndex = $client->index('subCategories');
-$lessonsIndex = $client->index('lessons');
+if ($meilisearch_master_key !== null) {
+    $client = new Client('http://meilisearch:7700', $meilisearch_master_key);
+    $subCategoriesIndex = $client->index('subCategories');
+    $lessonsIndex = $client->index('lessons');
+}
 
 # On instancie Twig avec le répertoire contenant les templates
 $loader = new \Twig\Loader\FilesystemLoader(dirname(__FILE__) . '/views');
@@ -124,6 +125,12 @@ $slug_categorie = null;
 $url_categorie = null;
 $label_categorie = null;
 $categoriesIndex = null;
+
+###########
+# Les index
+###########
+$indexSousCategorie = 1;
+$indexLecon = 1;
 
 ###################################
 # Construction du contenu dynamique
@@ -228,7 +235,7 @@ foreach ($categories as $numero => $categorie) {
             'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'
         ]);
         $subCategoriesIndexDocuments[] = [
-            'id' => md5($slug_sousCategorie),
+            'id' => $indexSousCategorie,
             'categorie' => $categorie['label_categorie'],
             'label' => $label_sousCategorie,
             'url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html',
@@ -321,7 +328,7 @@ foreach ($categories as $numero => $categorie) {
                 ];
             }
             $document = [
-                'id' => md5($lecon['slug_lecon']),
+                'id' => $indexLecon,
                 'categorie' => $categorie['label_categorie'],
                 'label' => $leconParsee->titre,
                 'url' => $base_lecon_url . 'index.html',
@@ -334,12 +341,16 @@ foreach ($categories as $numero => $categorie) {
             $listeExercices = null;
             $exercices = null;
             $document = null;
+            $indexLecon++;
         }
         $lecons = null;
         $leconsFormatees = null;
+        $indexSousCategorie++;
     }
-    $subCategoriesIndex->addDocuments($subCategoriesIndexDocuments);
-    $subCategoriesIndexDocuments = null;
+    if ($meilisearch_master_key !== null) {
+        $subCategoriesIndex->addDocuments($subCategoriesIndexDocuments);
+        $subCategoriesIndexDocuments = null;
+    }
     $sousCategories = null;
     $sousCategoriesFormatees = null;
     $contenu = null;
@@ -350,8 +361,10 @@ foreach ($categories as $numero => $categorie) {
     ];
     $liste_pages = null;
 }
-$lessonsIndex->addDocuments($lessonsIndexDocuments);
-$lessonsIndexDocuments = null;
+if ($meilisearch_master_key !== null) {
+    $lessonsIndex->addDocuments($lessonsIndexDocuments);
+    $lessonsIndexDocuments = null;
+}
 file_put_contents($repertoire_build . 'assets/json/liste_pages.json', json_encode($liste_pages_total, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 $liste_pages_total = null;
 file_put_contents($repertoire_build . 'assets/json/liste_lecons.json', json_encode($liste_lecons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
