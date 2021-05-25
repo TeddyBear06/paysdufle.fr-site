@@ -1,5 +1,3 @@
-import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
-
 $(document).ready(function () {
 
     const search = instantsearch({
