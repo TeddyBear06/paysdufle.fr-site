@@ -39,20 +39,19 @@ $(document).ready(function () {
             container: "#lessons",
             templates: {
             item: `
-                <a href="{{url}}">
-                    <div>
-                    <div class="lesson-titre">
-                        {{#helpers.highlight}}{ "attribute": "titre" }{{/helpers.highlight}}
+                <div class="card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{#helpers.highlight}}{ "attribute": "titre" }{{/helpers.highlight}}</h5>
+                        <p class="card-text">{{#helpers.snippet}}{ "attribute": "contenu" }{{/helpers.snippet}}</p>
+                        <p class="card-text"><small class="text-muted">Catégorie : {{categorie}}</small></p>
+                        <p class="card-text"><small class="text-muted">Sous-catégorie : {{sous-categorie}}</small></p>
+                        <p class="card-text"><small class="text-muted">Tags : {{tags}}</small></p>
                     </div>
-                    <img src="{{image}}" align="left" />
-                    <div class="lesson-contenu">
-                        {{#helpers.snippet}}{ "attribute": "contenu" }{{/helpers.snippet}}
+                    <div class="card-footer">
+                        <a class="btn btn-link" href="{{url}}">Consulter la leçon</a>
                     </div>
-                    <div class="lesson-info">Catégorie : {{categorie}}</div>
-                    <div class="lesson-info">Sous-catégorie : {{sous-categorie}}</div>
-                    <div class="lesson-info">Tags : {{tags}}</div>
-                    </div>
-                </a>
+                </div>
             `
             }
         }),
