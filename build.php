@@ -7,15 +7,15 @@ $app_env = $_ENV["APP_ENV"] ?? 'production';
 $tts_domain = $_ENV["TTS_DOMAIN"] ?? 'tts.localhost';
 $mp3_domain = $_ENV["MP3_DOMAIN"] ?? 'mp3.localhost';
 $meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
+$meilisearch_instance = $_ENV["MEILISEARCH_INSTANCE"] ?? null;
 $meilisearch_endpoint = $_ENV["MEILISEARCH_ENDPOINT"] ?? null;
 $meilisearch_api_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
 
 ################################
 # Useful variables for templates
 ################################
-$meilisearch_domain = parse_url($meilisearch_endpoint);
 $usefulVariablesForTemplates = [
-    'meilisearch_domain' => $meilisearch_domain['scheme']."://".$meilisearch_domain['host'],
+    'meilisearch_instance' => $meilisearch_instance,
     'meilisearch_endpoint' => $meilisearch_endpoint,
     'meilisearch_api_key' => $meilisearch_api_key,
 ];

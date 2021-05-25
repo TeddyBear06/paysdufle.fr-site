@@ -3,7 +3,7 @@ $(document).ready(function () {
     const search = instantsearch({
     indexName: "lessons",
     searchClient: instantMeiliSearch(
-        meilisearch_domain,
+        meilisearch_instance,
         meilisearch_api_key,
         {
             limitPerRequest: 30
