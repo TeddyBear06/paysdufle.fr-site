@@ -393,11 +393,23 @@ $pages = array_diff(scandir($repertoire_source . 'views/pages/', 1), array('..',
 foreach($pages as $key => $page) {
     $pageParsee = YamlFrontMatter::parse(file_get_contents($repertoire_source.'views/pages/'.$page));
     $template = $twig->createTemplate($pageParsee->body());
+    $items = [
+        [
+            'active' => false,
+            'url' => '/',
+            'label' => '<i class="fas fa-home"></i>'
+        ],
+        [
+            'active' => true,
+            'label' => $pageParsee->nom
+        ]
+    ];
     $contenu = $template->render(
         array_merge(
             $usefulVariablesForTemplates, 
             [
-                'sitemap' => $sitemap ?? null
+                'sitemap' => $sitemap ?? null,
+                'items' => $items
             ]
         )
     );
