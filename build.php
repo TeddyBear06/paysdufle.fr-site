@@ -392,8 +392,8 @@ if (! file_exists($repertoire_build . 'pages/')) {
 $pages = array_diff(scandir($repertoire_source . 'views/pages/', 1), array('..', '.'));
 foreach($pages as $key => $page) {
     $pageParsee = YamlFrontMatter::parse(file_get_contents($repertoire_source.'views/pages/'.$page));
-    $contenu = $twig->render(
-        $pageParsee->body(),
+    $template = $twig->createTemplate($pageParsee->body());
+    $contenu = $template->render(
         array_merge(
             $usefulVariablesForTemplates, 
             [
