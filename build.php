@@ -350,7 +350,7 @@ foreach ($categories as $numero => $categorie) {
                 'categorie_tokenized' => prepare_tokenisation($categorie['label_categorie']),
                 'label' => $leconParsee->titre,
                 'label_tokenized' => prepare_tokenisation($leconParsee->titre),
-                'contenu_tokenized' => prepare_tokenisation(Str::limit(strip_tags($contenuLecon), 1000, '')),
+                'contenu_tokenized' => prepare_tokenisation(strip_tags($contenuLecon)),
                 'url' => $base_lecon_url . 'index.html',
             ];
             if ($leconParsee->tags !== null) {
@@ -391,8 +391,9 @@ if (! file_exists($repertoire_build . 'pages/')) {
 }
 $pages = array_diff(scandir($repertoire_source . 'views/pages/', 1), array('..', '.'));
 foreach($pages as $key => $page) {
-    $page = str_replace('.html', '', $page);
-    $contenu = $twig->load("pages/$page.html")->render(
+    $pageParsee = YamlFrontMatter::parse(file_get_contents($repertoire_source.'views/pages/'.$page));
+    $contenu = $twig->render(
+        $pageParsee->body(),
         array_merge(
             $usefulVariablesForTemplates, 
             [
@@ -400,7 +401,7 @@ foreach($pages as $key => $page) {
             ]
         )
     );
-    file_put_contents($repertoire_build . "pages/$page.html", $contenu);
+    file_put_contents($repertoire_build . "pages/$page", $contenu);
 }
 
 #######################
