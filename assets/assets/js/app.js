@@ -4,7 +4,7 @@ $('#moteurRecherche').select2({
     placeholder: "Rechercher une thématique ou une leçon...",
     width: '100%',
     ajax: {
-        url: 'https://search.paysdufle.fr/search.php',
+        url: meilisearch_domain,
         dataType: 'json'
     }
 });

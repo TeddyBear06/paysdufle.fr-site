@@ -1,4 +1,5 @@
 {% set base_url = 'https://paysdufle.fr' %}
+{% set default_meilisearch_domain = 'https://search.paysdufle.fr/search.php' %}
 {% set default_image = 'https://paysdufle.fr/assets/img/template/couverture.jpg' %}
 {% set default_titre = 'Alicja au pays du FLE' %}
 {% set default_description = 'Alicja au pays du FLE est un site pour améliorer votre français.' %}
@@ -65,6 +66,9 @@
         <script src="/assets/js/vendors/select2.fr.js"></script>
         <script src="/assets/js/vendors/lazysizes.min.js" async></script>
         <script src="/assets/js/app.js"></script>
+        <script type="text/javascript">
+            var meilisearch_domain = '{% block meilisearch_domain %}{{ default_meilisearch_domain }}{% endblock %}';
+        </script>
         {% block scripts %}{% endblock %}
     </body>
 </html>
