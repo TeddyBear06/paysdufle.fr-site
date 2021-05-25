@@ -1,9 +1,9 @@
 <?php
 
-$debut_build = microtime(true); 
+$debut_build = microtime(true);
 
 # Permet de connaître l'environnement de build
-$app_env = $_ENV["APP_ENV"] ?? 'local';
+$app_env = $_ENV["APP_ENV"] ?? 'production';
 $tts_domain = $_ENV["TTS_DOMAIN"] ?? 'tts.localhost';
 $mp3_domain = $_ENV["MP3_DOMAIN"] ?? 'mp3.localhost';
 $meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;

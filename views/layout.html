@@ -51,24 +51,35 @@
 
         <div class="container-fluid text-center">
             <hr />
-            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="/assets/img/creative_commons.png" /></a><br />Cette œuvre est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International</a>.
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                <img alt="Licence Creative Commons" style="border-width:0" src="/assets/img/creative_commons.png" />
+            </a>
+            <br />Cette œuvre est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International</a>.
             <br />
             <a href="/pages/vie-privee.html">Vie privée</a> - <a href="/pages/mentions-legales.html">Mentions légales</a>
             <br />
             <p>2020 - 2021</p>
         </div>
 
+        <!-- Dummy audio container for HTML5 player -->
         <div id="audio-container"></div>
 
+        <!-- Vendors -->
         <script src="/assets/js/vendors/jquery.min.js"></script>
         <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
         <script src="/assets/js/vendors/select2.full.min.js"></script>
         <script src="/assets/js/vendors/select2.fr.js"></script>
         <script src="/assets/js/vendors/lazysizes.min.js" async></script>
-        <script src="/assets/js/app.js"></script>
+        
+        <!-- Variables -->
         <script type="text/javascript">
             var meilisearch_domain = '{% block meilisearch_domain %}{{ default_meilisearch_domain }}{% endblock %}';
         </script>
+
+        <!-- Application -->
+        <script src="/assets/js/app.js"></script>
+
+        <!-- Page-specific scripts -->
         {% block scripts %}{% endblock %}
     </body>
 </html>
