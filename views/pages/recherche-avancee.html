@@ -6,20 +6,43 @@ nom: Recherche avancée
 
 {% block titre %}Alicja au pays du FLE - Recherche avancée{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css" />
+{% endblock %}
+
 {% block content %}
 
     {{ include('partials/pages-statiques.html') }}
     
     <div class="row">
         <div class="col-12">
-            <h1>Vie privée</h1>
+            <h1>Recherche avancée</h1>
         </div>
     </div>
     <br />
     <div class="row">
         <div class="col-12">
-            <p>Votre vie privée est l'une de nos préoccupations principales (en plus de vous apprendre le français :-)), c'est pourquoi nous avons choisi de ne pas utiliser de cookies pour vous traquer dans les moindres recoins de notre site. C'est la raison pour laquelle vous ne verrez pas apparaître une de ces ennuyeuses boîtes de dialogue vous demandant d'accepter tel ou tel cookie.</p>
+            <div class="ais-InstantSearch">
+                <div class="left-panel">
+                    <div id="clear-refinements"></div>
+                    <h2>Catégories</h2>
+                    <div id="categories-list"></div>
+                    <h2>Sous-catégories</h2>
+                    <div id="sous-categories-list"></div>
+                    <h2>Tags</h2>
+                    <div id="tags-list"></div>
+                </div>
+                <div class="right-panel">
+                    <div id="searchbox" class="ais-SearchBox"></div>
+                    <div id="lessons"></div>
+                    <div id="pagination"></div>
+                </div>
+            </div>
         </div>
     </div>
     
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
 {% endblock %}

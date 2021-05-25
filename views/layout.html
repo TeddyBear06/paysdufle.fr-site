@@ -72,13 +72,14 @@
         
         <!-- Variables -->
         <script type="text/javascript">
-            var meilisearch_domain = '{{ meilisearch_endpoint }}';
+            var meilisearch_endpoint = '{{ meilisearch_endpoint }}';
+            var meilisearch_api_key = '{{ meilisearch_api_key }}';
         </script>
-
-        <!-- Application -->
-        <script src="/assets/js/app.js"></script>
 
         <!-- Page-specific scripts -->
         {% block scripts %}{% endblock %}
+
+        <!-- Application -->
+        <script src="/assets/js/app.js"></script>
     </body>
 </html>

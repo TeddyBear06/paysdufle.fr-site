@@ -8,12 +8,16 @@ $tts_domain = $_ENV["TTS_DOMAIN"] ?? 'tts.localhost';
 $mp3_domain = $_ENV["MP3_DOMAIN"] ?? 'mp3.localhost';
 $meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
 $meilisearch_endpoint = $_ENV["MEILISEARCH_ENDPOINT"] ?? null;
+$meilisearch_api_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
 
 ################################
 # Useful variables for templates
 ################################
+$meilisearch_domain = parse_url($meilisearch_endpoint);
 $usefulVariablesForTemplates = [
+    'meilisearch_domain' => $meilisearch_domain['scheme']."://".$meilisearch_domain['host'],
     'meilisearch_endpoint' => $meilisearch_endpoint,
+    'meilisearch_api_key' => $meilisearch_api_key,
 ];
 
 # On charge les librairies
@@ -33,6 +37,9 @@ if ($meilisearch_master_key !== null) {
     $client = new Client('http://meilisearch:7700', $meilisearch_master_key);
     $subCategoriesIndex = $client->index('subCategories');
     $lessonsIndex = $client->index('lessons');
+    # On ajoute les facettes
+    $promise = $lessonsIndex->updateAttributesForFaceting(['categorie', 'sous-categorie', 'tags']);
+    $lessonsIndex->waitForPendingUpdate($promise['updateId']);
 }
 
 # On instancie Twig avec le répertoire contenant les templates
@@ -70,28 +77,28 @@ if (file_exists($repertoire_build)) {
 ##############################################
 # Copie des assets dans le répertoire de build
 ##############################################
-if (! file_exists($repertoire_build . 'assets/')) {
-    mkdir($repertoire_build . 'assets/', 0775);
+if (! file_exists($repertoire_build.'assets/')) {
+    mkdir($repertoire_build.'assets/', 0775);
 }
-recursive_copy($repertoire_source . 'assets/', $repertoire_build);
+recursive_copy($repertoire_source.'assets/', $repertoire_build);
 
 ###################################################
 # Création du fichier contenant la liste des leçons
 ###################################################
-if (! file_exists($repertoire_build . 'assets/json/liste_lecons.json')) {
+if (! file_exists($repertoire_build.'assets/json/liste_lecons.json')) {
     mkdir($repertoire_build . 'assets/json/', 0775);
-    file_put_contents($repertoire_build . 'assets/json/liste_lecons.json', '{}');
+    file_put_contents($repertoire_build.'assets/json/liste_lecons.json', '{}');
 }
-$liste_lecons = json_decode(file_get_contents($repertoire_build . 'assets/json/liste_lecons.json'), true);
+$liste_lecons = json_decode(file_get_contents($repertoire_build.'assets/json/liste_lecons.json'), true);
 
 ###################################
 # Construction de la page d'accueil
 ###################################
-$listeCategories = array_diff(scandir($repertoire_source . 'content/'), array('..', '.'));
+$listeCategories = array_diff(scandir($repertoire_source.'content/'), array('..', '.'));
 foreach ($listeCategories as $categorie) {
     $categorie = explode('.', $categorie)[1];
     $slug_categorie = Str::slug($categorie);
-    $url_categorie = $slug_categorie . '/index.html';
+    $url_categorie = $slug_categorie.'/index.html';
     $label_categorie = ucfirst($categorie);
     $categorieArray = [
         'raw_categorie' => $categorie,
@@ -141,16 +148,16 @@ $indexLecon = 1;
 ###################################
 foreach ($categories as $numero => $categorie) {
     $numero++;
-    if (! file_exists($repertoire_build . $categorie['slug_categorie'] . '/')) {
-        mkdir($repertoire_build . $categorie['slug_categorie'] . '/', 0775);
+    if (! file_exists($repertoire_build.$categorie['slug_categorie'].'/')) {
+        mkdir($repertoire_build.$categorie['slug_categorie'].'/', 0775);
     }
     ###########################################
     # 1/3 Création des pages de sous-catégories
     ###########################################
-    $listeSousCategories = array_diff(scandir($repertoire_source . 'content/' . $numero . '.' . $categorie['raw_categorie'] . '/'), array('..', '.'));
+    $listeSousCategories = array_diff(scandir($repertoire_source.'content/'.$numero.'.'.$categorie['raw_categorie'].'/'), array('..', '.'));
     foreach ($listeSousCategories as $sousCategorie) {
         $slug_sousCategorie = \Illuminate\Support\Str::slug($sousCategorie);
-        $url_sousCategorie = $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html';
+        $url_sousCategorie = $categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html';
         $label_sousCategorie = ucfirst($sousCategorie);
         $sousCategories[] = [
             'raw_sousCategorie' => $sousCategorie,
@@ -183,25 +190,25 @@ foreach ($categories as $numero => $categorie) {
                 'label_categorie' => $categorie['label_categorie'],
                 'sousCategories' => $sousCategories,
                 'items' => $items,
-                'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/index.html'
+                'meta_url' => 'https://paysdufle.fr/'.$categorie['slug_categorie'].'/index.html'
             ]
         )
     );
-    file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/index.html', $contenu);
+    file_put_contents($repertoire_build.$categorie['slug_categorie'].'/index.html', $contenu);
     ##############################################
     # 2/3 Création des pages de listing des leçons
     ##############################################
     foreach ($listeSousCategories as $sousCategorie) {
         $slug_sousCategorie = \Illuminate\Support\Str::slug($sousCategorie);
-        $url_sousCategorie = $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html';
+        $url_sousCategorie = $categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html';
         $label_sousCategorie = ucfirst($sousCategorie);
-        if (! file_exists($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/')) {
-            mkdir($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/', 0775);
+        if (! file_exists($repertoire_build.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/')) {
+            mkdir($repertoire_build.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/', 0775);
         }
-        $listeLecons = array_diff(scandir($repertoire_source . 'content/' . $numero . '.' . $categorie['raw_categorie'] . '/' . $sousCategorie . '/'), array('..', '.'));
+        $listeLecons = array_diff(scandir($repertoire_source.'content/'.$numero.'.'.$categorie['raw_categorie'].'/'.$sousCategorie.'/'), array('..', '.'));
         foreach ($listeLecons as $lecon) {
             $slug_lecon = \Illuminate\Support\Str::slug($lecon);
-            $url_lecon = $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $slug_lecon . '/index.html';
+            $url_lecon = $categorie['slug_categorie'].'/'.$slug_sousCategorie.'/'.$slug_lecon.'/index.html';
             $label_lecon = ucfirst($lecon);
             $lecons[] = [
                 'raw_lecon' => $lecon,
@@ -240,7 +247,7 @@ foreach ($categories as $numero => $categorie) {
                     'label_sousCategorie' => $label_sousCategorie,
                     'lecons' => $lecons,
                     'items' => $items,
-                    'meta_url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html'
+                    'meta_url' => 'https://paysdufle.fr/'.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html'
                 ]
             )
         );
@@ -250,15 +257,15 @@ foreach ($categories as $numero => $categorie) {
             'categorie_tokenized' => prepare_tokenisation($categorie['label_categorie']),
             'label' => $label_sousCategorie,
             'label_tokenized' => prepare_tokenisation($label_sousCategorie),
-            'url' => 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html',
+            'url' => 'https://paysdufle.fr/'.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html',
         ];
-        file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/index.html', $contenu);
+        file_put_contents($repertoire_build.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html', $contenu);
         #################################
         # 3/3 Création de pages de leçons
         #################################
         foreach ($lecons as $lecon) {
             // Si le répertoire de la leçon n'existe pas, on le créer
-            if (! file_exists($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/')) {
+            if (! file_exists($repertoire_build.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/'.$lecon['slug_lecon'].'/')) {
                 mkdir($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/', 0775);
             }
             // Si le répertoire des images de la leçon n'existe pas, on le créer
@@ -346,15 +353,25 @@ foreach ($categories as $numero => $categorie) {
             }
             $document = [
                 'id' => $indexLecon,
+
                 'categorie' => $categorie['label_categorie'],
                 'categorie_tokenized' => prepare_tokenisation($categorie['label_categorie']),
-                'label' => $leconParsee->titre,
-                'label_tokenized' => prepare_tokenisation($leconParsee->titre),
+
+                'sous-categorie' =>  $label_sousCategorie,
+                'sous-categorie_tokenized' => prepare_tokenisation( $label_sousCategorie),
+
+                'titre' => $leconParsee->titre,
+                'titre_tokenized' => prepare_tokenisation($leconParsee->titre),
+
+                'contenu' => strip_tags($contenuLecon),
                 'contenu_tokenized' => prepare_tokenisation(strip_tags($contenuLecon)),
-                'url' => $base_lecon_url . 'index.html',
+
+                'url' => $base_lecon_url.'index.html',
+                'image' => $base_lecon_url.$leconParsee->couverture,
             ];
             if ($leconParsee->tags !== null) {
                 $document['contenu_tokenized'] = inject_tags($document['contenu_tokenized'], explode(',', $leconParsee->tags));
+                $document['tags'] = explode(',', $leconParsee->tags);
             }
             $lessonsIndexDocuments[] = $document;
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);

@@ -1,11 +1,12 @@
 $(document).ready(function () {
+
     $('#moteurRecherche').select2({
         language: "fr",
         minimumInputLength: 2,
-        placeholder: "Rechercher une thématique ou une leçon...",
+        placeholder: "Recherche rapide...",
         width: '100%',
         ajax: {
-            url: meilisearch_domain,
+            url: meilisearch_endpoint,
             dataType: 'json'
         }
     });
@@ -37,4 +38,5 @@ $(document).ready(function () {
             window.location.href = leconSelectionne.url;
         });
     });
+
 });
