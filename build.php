@@ -7,13 +7,13 @@ $app_env = $_ENV["APP_ENV"] ?? 'production';
 $tts_domain = $_ENV["TTS_DOMAIN"] ?? 'tts.localhost';
 $mp3_domain = $_ENV["MP3_DOMAIN"] ?? 'mp3.localhost';
 $meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
-$meilisearch_domain = $_ENV["MEILISEARCH_DOMAIN"] ?? null;
+$meilisearch_endpoint = $_ENV["MEILISEARCH_ENDPOINT"] ?? null;
 
 ################################
 # Useful variables for templates
 ################################
 $usefulVariablesForTemplates = [
-    'meilisearch_domain' => $meilisearch_domain,
+    'meilisearch_endpoint' => $meilisearch_endpoint,
 ];
 
 # On charge les librairies
