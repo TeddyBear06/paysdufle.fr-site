@@ -20,27 +20,27 @@ $(document).ready(function () {
         }),
         instantsearch.widgets.refinementList({
             container: "#categories-list",
-            attribute: "categories"
+            attribute: "categorie"
         }),
         instantsearch.widgets.refinementList({
             container: "#sous-categories-list",
-            attribute: "sous-categories"
+            attribute: "sous-categorie"
         }),
         instantsearch.widgets.refinementList({
             container: "#tags-list",
             attribute: "tags"
         }),
         instantsearch.widgets.configure({
-            hitsPerPage: 6,
+            hitsPerPage: 9,
             snippetEllipsisText: "...",
             attributesToSnippet: ["contenu:50"]
         }),
-        instantsearch.widgets.hits({
+        instantsearch.widgets.lessons({
             container: "#lessons",
             templates: {
             item: `
                 <div class="card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <img class="card-img-top" src="{{image}}" alt="Illustration leçon">
                     <div class="card-body">
                         <h5 class="card-title">{{#helpers.highlight}}{ "attribute": "titre" }{{/helpers.highlight}}</h5>
                         <p class="card-text">{{#helpers.snippet}}{ "attribute": "contenu" }{{/helpers.snippet}}</p>
