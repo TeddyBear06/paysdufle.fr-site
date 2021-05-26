@@ -31,7 +31,7 @@ $(document).ready(function () {
             attribute: "tags"
         }),
         instantsearch.widgets.configure({
-            hitsPerPage: 9,
+            hitsPerPage: 8,
             snippetEllipsisText: "...",
             attributesToSnippet: ["contenu:50"]
         }),
