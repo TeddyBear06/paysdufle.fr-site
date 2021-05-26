@@ -25,12 +25,12 @@
     margin: 0 auto;
 }
 
-.ais-Lessons-item {
+.ais-Hits-item {
     margin-bottom: 1em;
     width: calc(50% - 1rem);
 }
 
-.ais-Lessons-item img {
+.ais-Hits-item img {
     margin-right: 1em;
     width: 100%;
     height: 100%;

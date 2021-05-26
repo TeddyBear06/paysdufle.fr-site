@@ -35,8 +35,8 @@ $(document).ready(function () {
             snippetEllipsisText: "...",
             attributesToSnippet: ["contenu:50"]
         }),
-        instantsearch.widgets.lessons({
-            container: "#lessons",
+        instantsearch.widgets.hits({
+            container: "#hits",
             templates: {
             item: `
                 <div class="card">
