@@ -20,7 +20,6 @@
 }
 
 .ais-InstantSearch {
-    max-width: 960px;
     overflow: hidden;
     margin: 0 auto;
 }
@@ -28,6 +27,8 @@
 .ais-Hits-item {
     margin-bottom: 1em;
     width: calc(50% - 1rem);
+    border: none !important;
+    box-shadow: none !important
 }
 
 .ais-Hits-item img {
