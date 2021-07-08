@@ -10,6 +10,7 @@ $meilisearch_master_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
 $meilisearch_instance = $_ENV["MEILISEARCH_INSTANCE"] ?? null;
 $meilisearch_endpoint = $_ENV["MEILISEARCH_ENDPOINT"] ?? null;
 $meilisearch_api_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
+$rgpdcvc_endpoint = $_ENV["RGPDCVC_ENDPOINT"] ?? null;
 
 ################################
 # Useful variables for templates
@@ -18,6 +19,7 @@ $usefulVariablesForTemplates = [
     'meilisearch_instance' => $meilisearch_instance,
     'meilisearch_endpoint' => $meilisearch_endpoint,
     'meilisearch_api_key' => $meilisearch_api_key,
+    'rgpdcvc_endpoint' => $rgpdcvc_endpoint,
 ];
 
 # On charge les librairies

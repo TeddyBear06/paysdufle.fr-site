@@ -39,6 +39,6 @@ $(document).ready(function () {
         });
     });
 
-    var websocket = new WebSocket("ws://rgpdcvc:8090/");
+    var websocket = new WebSocket(rgpdcvc_endpoint);
 
 });
