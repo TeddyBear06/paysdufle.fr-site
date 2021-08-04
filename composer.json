@@ -9,6 +9,8 @@
         "league/climate": "^3.7",
         "meilisearch/meilisearch-php": "^0.17.2",
         "guzzlehttp/guzzle": "^7.3",
-        "http-interop/http-factory-guzzle": "1.0"
+        "http-interop/http-factory-guzzle": "1.0",
+        "spatie/laravel-sitemap": "^6.0",
+        "nesbot/carbon": "^2.51"
     }
 }

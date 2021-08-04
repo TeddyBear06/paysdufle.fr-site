@@ -1,2 +1,3 @@
 Run Composer using Docker : docker run --rm --interactive --tty --volume %cd%:/app composer ...
+    Ignore PHP version : --ignore-platform-reqs
 Redis monitoring : redis-cli -h redis MONITOR

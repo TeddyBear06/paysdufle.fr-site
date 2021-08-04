@@ -32,6 +32,10 @@ use Illuminate\Support\Str;
 
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Spatie\SchemaOrg\Schema;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+
+use Carbon\Carbon;
 
 use MeiliSearch\Client;
 
@@ -400,7 +404,8 @@ if ($meilisearch_master_key !== null) {
     $lessonsIndexDocuments = null;
 }
 file_put_contents($repertoire_build . 'assets/json/liste_lecons.json', json_encode($liste_lecons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
-$liste_lecons = null;
+
+
 
 ##################################
 # Construction des pages statiques
@@ -434,6 +439,21 @@ foreach($pages as $key => $page) {
     );
     file_put_contents($repertoire_build . "pages/$page", $contenu);
 }
+
+#######################
+# Génération du sitemap
+#######################
+$sitemap = Sitemap::create();
+foreach ($liste_lecons as $lecon) {
+    $sitemap = $sitemap->add(
+        Url::create('https://paysdufle.fr'.$lecon['url'])
+            ->setLastModificationDate(Carbon::now())
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+    );
+}
+$sitemap->writeToFile($repertoire_build . 'sitemap.xml');
+
+$liste_lecons = null;
 
 #######################
 # Ajout des filigranes
