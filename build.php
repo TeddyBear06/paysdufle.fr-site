@@ -444,6 +444,9 @@ foreach($pages as $key => $page) {
 
 $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
 $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+foreach ($pages as $page) {
+    $sitemap .= '<url><loc>https://paysdufle.fr/pages/'.$page.'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
+}
 foreach ($liste_lecons as $lecon) {
     $sitemap .= '<url><loc>https://paysdufle.fr'.$lecon['url'].'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
 }
