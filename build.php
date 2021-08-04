@@ -32,8 +32,6 @@ use Illuminate\Support\Str;
 
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Spatie\SchemaOrg\Schema;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
 
 use Carbon\Carbon;
 
@@ -443,15 +441,14 @@ foreach($pages as $key => $page) {
 #######################
 # Génération du sitemap
 #######################
-$sitemap = Sitemap::create();
+
+$sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
+$sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 foreach ($liste_lecons as $lecon) {
-    $sitemap = $sitemap->add(
-        Url::create('https://paysdufle.fr'.$lecon['url'])
-            ->setLastModificationDate(Carbon::now())
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-    );
+    $sitemap .= '<url><loc>https://paysdufle.fr'.$lecon['url'].'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
 }
-$sitemap->writeToFile($repertoire_build . 'sitemap.xml');
+$sitemap .= '</urlset>';
+file_put_contents($repertoire_build.'sitemap.xml', $sitemap);
 
 $liste_lecons = null;
 

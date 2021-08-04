@@ -1,6 +1,5 @@
 {
     "require": {
-        "mustache/mustache": "^2.13",
         "illuminate/support": "^8.32.1",
         "erusev/parsedown": "^1.7",
         "spatie/yaml-front-matter": "^2.0",
@@ -10,7 +9,6 @@
         "meilisearch/meilisearch-php": "^0.17.2",
         "guzzlehttp/guzzle": "^7.3",
         "http-interop/http-factory-guzzle": "1.0",
-        "spatie/laravel-sitemap": "^6.0",
         "nesbot/carbon": "^2.51"
     }
 }
