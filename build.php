@@ -94,6 +94,7 @@ if (! file_exists($repertoire_build.'assets/json/liste_lecons.json')) {
     file_put_contents($repertoire_build.'assets/json/liste_lecons.json', '{}');
 }
 $liste_lecons = json_decode(file_get_contents($repertoire_build.'assets/json/liste_lecons.json'), true);
+$liste_lecons_complete = [];
 
 ###################################
 # Construction de la page d'accueil
@@ -355,6 +356,10 @@ foreach ($categories as $numero => $categorie) {
                     'label' => $leconParsee->titre
                 ];
             }
+            $liste_lecons_complete[] = [
+                'url' => '/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html',
+                'label' => $leconParsee->titre
+            ];
             $document = [
                 'id' => $indexLecon,
 
@@ -403,8 +408,6 @@ if ($meilisearch_master_key !== null) {
 }
 file_put_contents($repertoire_build . 'assets/json/liste_lecons.json', json_encode($liste_lecons, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 
-
-
 ##################################
 # Construction des pages statiques
 ##################################
@@ -447,13 +450,14 @@ $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 foreach ($pages as $page) {
     $sitemap .= '<url><loc>https://paysdufle.fr/pages/'.$page.'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
 }
-foreach ($liste_lecons as $lecon) {
+foreach ($liste_lecons_complete as $lecon) {
     $sitemap .= '<url><loc>https://paysdufle.fr'.$lecon['url'].'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
 }
 $sitemap .= '</urlset>';
 file_put_contents($repertoire_build.'sitemap.xml', $sitemap);
 
 $liste_lecons = null;
+$liste_lecons_complete = null;
 
 #######################
 # Ajout des filigranes
