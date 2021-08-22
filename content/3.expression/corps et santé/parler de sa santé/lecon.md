@@ -13,7 +13,7 @@ Faites alors les exercices qui suivent et essayez par la suite de parler de vous
 Avant de faire les **exercices 1 à 4**, regardez le diaporama ci-dessous et rappelez-vous comment exprimer la fréquence en français. 
 
 <div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="https://docs.google.com/presentation/d/e/2PACX-1vRgvQLVTPGrnEkNT_kdOTGgBJpVZbwmglqTJsPoMOUYtlA1LUltfk3ki2bQhJERD3vTGeuS9TN6jNaP/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    <iframe loading="lazy" src = "/ViewerJS/#../pdf/frequence.pdf" width='700' height='500' allowfullscreen webkitallowfullscreen></iframe>
 </div>
 
 Et maintenant, observez les photos, complétez les phrases ci-dessous et essayez de dire à votre tour si vous êtes souvent malade ? Avez-vous souvent mal ?
