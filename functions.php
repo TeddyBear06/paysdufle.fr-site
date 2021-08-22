@@ -21,10 +21,7 @@ function quizlet($numero, $contenu) : array {
     $contenuParse = YamlFrontMatter::parse($contenu);
 
     if ($contenuParse->iframe) {
-
-        $message = "<p>Si vous avez des problèmes avec l'affichage de cette activité, vous pouvez la faire directement sur le site Quizlet en cliquant sur le lien suivant : <a href='{$contenuParse->iframe}' target='_blank'>{$contenuParse->iframe}</a></p>";
-
-        $contenu = $message . "<div class='embed-responsive embed-responsive-16by9'><iframe loading='lazy' class='embed-responsive-item' src='$contenuParse->iframe' frameborder='0' allowfullscreen='true' mozallowfullscreen='true' webkitallowfullscreen='true'></iframe></div>";
+        $contenu = "<p>Vous pouvez directement faire cette activité sur le site de Quizlet en cliquant sur le lien suivant : <a href='{$contenuParse->iframe}' target='_blank'>{$contenuParse->iframe}</a></p>";
     }
 
     return [
@@ -33,7 +30,7 @@ function quizlet($numero, $contenu) : array {
         'contenu' => nl2br($contenu),
         'afficher_bouton_reponses' => false,
         'afficher_bouton_corriger' => false,
-        'consigne' => 'Apprenez le vocabulaire avec Quizlet.'
+        'consigne' => 'Apprenez avec Quizlet.'
     ];
 }
 
