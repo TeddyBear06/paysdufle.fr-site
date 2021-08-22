@@ -9,7 +9,7 @@ couverture: images/couverture.jpg
 D'abord, visionnez le diaporama ci-dessous.
 
 <div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="https://docs.google.com/presentation/d/e/2PACX-1vSNFTPSm0d9aGTJCr4Db2ZZ_-zhUtU5rkMnUStpb9H2RcYElCxc1LqsrveQNoES1akYC1acUj0hQPWQ/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    <iframe src = "/ViewerJS/#../pdf/parties_du corps_A1_A2.pdf" width='700' height='500' allowfullscreen webkitallowfullscreen></iframe>
 </div>
 Avez-vous remarqué l'utilisation des trois couleurs (bleu, rouge, vert) dans le diaporama ? C'est pour vous aider à mémoriser le genre des parties du corps. Si vous voulez travailler ce point de grammaire, cliquez [ici](https://paysdufle.fr/grammaire/genre/les-parties-du-corps/index.html) 
 
