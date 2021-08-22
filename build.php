@@ -11,6 +11,7 @@ $meilisearch_instance = $_ENV["MEILISEARCH_INSTANCE"] ?? null;
 $meilisearch_endpoint = $_ENV["MEILISEARCH_ENDPOINT"] ?? null;
 $meilisearch_api_key = $_ENV["MEILISEARCH_MASTER_KEY"] ?? null;
 $rgpdcvc_endpoint = $_ENV["RGPDCVC_ENDPOINT"] ?? null;
+$base_domain = 'https://paysdufle.fr';
 
 ################################
 # Useful variables for templates
@@ -195,7 +196,7 @@ foreach ($categories as $numero => $categorie) {
                 'label_categorie' => $categorie['label_categorie'],
                 'sousCategories' => $sousCategories,
                 'items' => $items,
-                'meta_url' => 'https://paysdufle.fr/'.$categorie['slug_categorie'].'/index.html'
+                'meta_url' => $base_domain.'/'.$categorie['slug_categorie'].'/index.html'
             ]
         )
     );
@@ -252,7 +253,7 @@ foreach ($categories as $numero => $categorie) {
                     'label_sousCategorie' => $label_sousCategorie,
                     'lecons' => $lecons,
                     'items' => $items,
-                    'meta_url' => 'https://paysdufle.fr/'.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html'
+                    'meta_url' => $base_domain.'/'.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html'
                 ]
             )
         );
@@ -262,7 +263,7 @@ foreach ($categories as $numero => $categorie) {
             'categorie_tokenized' => prepare_tokenisation($categorie['label_categorie']),
             'label' => $label_sousCategorie,
             'label_tokenized' => prepare_tokenisation($label_sousCategorie),
-            'url' => 'https://paysdufle.fr/'.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html',
+            'url' => $base_domain.'/'.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html',
         ];
         file_put_contents($repertoire_build.$categorie['slug_categorie'].'/'.$slug_sousCategorie.'/index.html', $contenu);
         #################################
@@ -315,7 +316,7 @@ foreach ($categories as $numero => $categorie) {
                     'label' => $leconParsee->titre
                 ]
             ];
-            $base_lecon_url = 'https://paysdufle.fr/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/';
+            $base_lecon_url = $base_domain.'/' . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/';
 
             $resultatEnrichi = Schema::course()
                 ->name($leconParsee->titre)
@@ -323,7 +324,7 @@ foreach ($categories as $numero => $categorie) {
                 ->provider(
                     Schema::organization()
                         ->name('Pays du FLE')
-                        ->sameAs('https://paysdufle.fr')
+                        ->sameAs($base_domain)
                 );
 
             $contenu = $twig->load('lecon.html')->render(
@@ -447,11 +448,12 @@ foreach($pages as $key => $page) {
 
 $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
 $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+$sitemap .= '<url><loc>'.$base_domain.'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
 foreach ($pages as $page) {
-    $sitemap .= '<url><loc>https://paysdufle.fr/pages/'.$page.'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
+    $sitemap .= '<url><loc>'.$base_domain.'/pages/'.$page.'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
 }
 foreach ($liste_lecons_complete as $lecon) {
-    $sitemap .= '<url><loc>https://paysdufle.fr'.$lecon['url'].'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
+    $sitemap .= '<url><loc>'.$base_domain.$lecon['url'].'</loc><lastmod>'.Carbon::now()->format('Y-m-d').'</lastmod></url>';
 }
 $sitemap .= '</urlset>';
 file_put_contents($repertoire_build.'sitemap.xml', $sitemap);
