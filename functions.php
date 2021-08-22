@@ -24,7 +24,7 @@ function quizlet($numero, $contenu) : array {
 
         $message = "<p>Si vous avez des problèmes avec l'affichage de cette activité, vous pouvez la faire directement sur le site Quizlet en cliquant sur le lien suivant : <a href='{$contenuParse->iframe}' target='_blank'>{$contenuParse->iframe}</a></p>";
 
-        $contenu = $message . "<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='$contenuParse->iframe' frameborder='0' allowfullscreen='true' mozallowfullscreen='true' webkitallowfullscreen='true'></iframe></div>";
+        $contenu = $message . "<div class='embed-responsive embed-responsive-16by9'><iframe loading='lazy' class='embed-responsive-item' src='$contenuParse->iframe' frameborder='0' allowfullscreen='true' mozallowfullscreen='true' webkitallowfullscreen='true'></iframe></div>";
     }
 
     return [
@@ -150,7 +150,7 @@ function texte_lacunaire_choix_multiple($numero, $contenu) : array {
     if ($contenuParse->image) {
         $contenu = "<img src='$contenuParse->image' alt='Illustration'>" . $contenu;
     } elseif ($contenuParse->iframe) {
-        $contenu = "<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='$contenuParse->iframe' frameborder='0' allowfullscreen='true' mozallowfullscreen='true' webkitallowfullscreen='true'></iframe></div>" . $contenu;
+        $contenu = "<div class='embed-responsive embed-responsive-16by9'><iframe loading='lazy' class='embed-responsive-item' src='$contenuParse->iframe' frameborder='0' allowfullscreen='true' mozallowfullscreen='true' webkitallowfullscreen='true'></iframe></div>" . $contenu;
     }
 
     return [
@@ -183,7 +183,7 @@ function texte_lacunaire_reponse_libre($numero, $contenu) {
     if ($contenuParse->image) {
         $contenu = "<img src='$contenuParse->image' alt='Illustration'>" . $contenu;
     } elseif ($contenuParse->iframe) {
-        $contenu = "<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='$contenuParse->iframe' frameborder='0' allowfullscreen='true' mozallowfullscreen='true' webkitallowfullscreen='true'></iframe></div>" . $contenu;
+        $contenu = "<div class='embed-responsive embed-responsive-16by9'><iframe loading='lazy' class='embed-responsive-item' src='$contenuParse->iframe' frameborder='0' allowfullscreen='true' mozallowfullscreen='true' webkitallowfullscreen='true'></iframe></div>" . $contenu;
     }
 
     return [
