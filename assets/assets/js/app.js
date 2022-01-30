@@ -6,6 +6,9 @@ $(document).ready(function () {
         placeholder: "Recherche rapide...",
         width: '100%',
         ajax: {
+            headers: {
+                "Authorization": "Bearer " + meilisearch_api_key
+            },
             url: meilisearch_endpoint,
             dataType: 'json'
         }
