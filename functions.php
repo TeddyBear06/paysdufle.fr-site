@@ -258,12 +258,12 @@ function recursive_copy($src, $dst) {
 }
 
 /**
- * Permet d'insérer des tags au début d'un texte
+ * Permet d'insérer un tag au début d'un texte
  */
-function inject_tags($texte, $tags)
+function inject_tag($texte, $tag)
 {
-    // Concatenate tags with tokenized text
-    $result = implode(' ', $tags).' '.$texte;
+    // Concatenate tag with tokenized text
+    $result = $tag.' '.$texte;
 
     return Str::words($result, 1000, '');
 }

@@ -43,7 +43,7 @@ if ($meilisearch_master_key !== null) {
     $subCategoriesIndex = $client->index('subCategories');
     $lessonsIndex = $client->index('lessons');
     # On ajoute les facettes
-    $promise = $lessonsIndex->updateFilterableAttributes(['categorie', 'sous-categorie', 'tags']);
+    $promise = $lessonsIndex->updateFilterableAttributes(['categorie', 'sous-categorie', 'tag']);
     $lessonsIndex->waitForTask($promise['updateId']);
 }
 
@@ -379,9 +379,9 @@ foreach ($categories as $numero => $categorie) {
                 'url' => $base_lecon_url.'index.html',
                 'image' => $base_lecon_url.$leconParsee->couverture,
             ];
-            if ($leconParsee->tags !== null) {
-                $document['contenu_tokenized'] = inject_tags($document['contenu_tokenized'], explode(',', $leconParsee->tags));
-                $document['tags'] = array_values(explode(',', $leconParsee->tags));
+            if ($leconParsee->tag !== null) {
+                $document['contenu_tokenized'] = inject_tag($document['contenu_tokenized'], $leconParsee->tag);
+                $document['tag'] = $leconParsee->tag;
             }
             $lessonsIndexDocuments[] = $document;
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);

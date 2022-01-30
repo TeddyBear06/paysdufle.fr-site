@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
     const search = instantsearch({
-    indexName: "lessons",
-    searchClient: instantMeiliSearch(
-        meilisearch_instance,
-        meilisearch_api_key,
-        {
-            limitPerRequest: 30
-        }
-    )
+        indexName: "lessons",
+        searchClient: instantMeiliSearch(
+            meilisearch_instance,
+            meilisearch_api_key,
+            {
+                limitPerRequest: 30
+            }
+        )
     });
 
     search.addWidgets([
@@ -28,7 +28,7 @@ $(document).ready(function () {
         }),
         instantsearch.widgets.refinementList({
             container: "#tags-list",
-            attribute: "tags"
+            attribute: "tag"
         }),
         instantsearch.widgets.configure({
             hitsPerPage: 8,
@@ -46,7 +46,7 @@ $(document).ready(function () {
                         <p class="card-text">{{#helpers.snippet}}{ "attribute": "contenu" }{{/helpers.snippet}}</p>
                         <p class="card-text"><small class="text-muted">Catégorie : {{categorie}}</small></p>
                         <p class="card-text"><small class="text-muted">Sous-catégorie : {{sous-categorie}}</small></p>
-                        <p class="card-text"><small class="text-muted">Tags : {{tags}}</small></p>
+                        <p class="card-text"><small class="text-muted">Tag : {{tags}}</small></p>
                     </div>
                     <div class="card-footer">
                         <a class="btn btn-link" href="{{url}}">Consulter la leçon</a>
