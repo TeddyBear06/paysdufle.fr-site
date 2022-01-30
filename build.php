@@ -43,8 +43,8 @@ if ($meilisearch_master_key !== null) {
     $subCategoriesIndex = $client->index('subCategories');
     $lessonsIndex = $client->index('lessons');
     # On ajoute les facettes
-    $promise = $lessonsIndex->updateAttributesForFaceting(['categorie', 'sous-categorie', 'tags']);
-    $lessonsIndex->waitForPendingUpdate($promise['updateId']);
+    $promise = $lessonsIndex->updateFilterableAttributes(['categorie', 'sous-categorie', 'tags']);
+    $lessonsIndex->waitForTask($promise['updateId']);
 }
 
 # On instancie Twig avec le répertoire contenant les templates
