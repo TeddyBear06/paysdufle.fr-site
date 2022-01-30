@@ -381,7 +381,7 @@ foreach ($categories as $numero => $categorie) {
             ];
             if ($leconParsee->tags !== null) {
                 $document['contenu_tokenized'] = inject_tags($document['contenu_tokenized'], explode(',', $leconParsee->tags));
-                $document['tags'] = explode(',', $leconParsee->tags);
+                $document['tags'] = array_values(explode(',', $leconParsee->tags));
             }
             $lessonsIndexDocuments[] = $document;
             file_put_contents($repertoire_build . $categorie['slug_categorie'] . '/' . $slug_sousCategorie . '/' . $lecon['slug_lecon'] . '/index.html', $contenu);
