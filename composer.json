@@ -6,7 +6,7 @@
         "twig/twig": "^3.0",
         "spatie/schema-org": "^3.3.0",
         "league/climate": "^3.7",
-        "meilisearch/meilisearch-php": "^0.17.2",
+        "meilisearch/meilisearch-php": "^0.21.0",
         "guzzlehttp/guzzle": "^7.3",
         "http-interop/http-factory-guzzle": "1.0",
         "nesbot/carbon": "^2.51"
