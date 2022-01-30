@@ -2,6 +2,7 @@
 titre: Saisir ici le titre de la leçon
 description: Saisir ici la description de la leçon
 couverture: images/couverture.jpg
+tag: Un seul tag
 ---
 
 ##### Titre principal
