@@ -37,6 +37,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Exercice n°{{ exercice.numero }} : <small>{{ exercice.consigne }}</small></h3>
+                        {% if exercice.aide %}
+                            <h4>Aide : <small>{{ exercice.aide|nl2br }}</small></h4>
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         <div class="card-text" id="contenuExercice{{ exercice.numero }}">{{ exercice.contenu|raw }}</div>

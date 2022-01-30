@@ -189,7 +189,8 @@ function texte_lacunaire_reponse_libre($numero, $contenu) {
         'contenu' => nl2br($contenu),
         'afficher_bouton_reponses' => true,
         'afficher_bouton_corriger' => true,
-        'consigne' => 'Saisissez la réponse correcte dans les champs vides.'
+        'consigne' => 'Saisissez la réponse correcte dans les champs vides.',
+		'aide' => "Utilisez les caractères ci-dessous dans les champs de saisie :\nà - â - ä - é - è - ê - ë - ï - î - ô - ö - ù - û - ü - ÿ - ç"
     ];
 }
 
