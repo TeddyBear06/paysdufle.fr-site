@@ -46,7 +46,7 @@ $(document).ready(function () {
                         <p class="card-text">{{#helpers.snippet}}{ "attribute": "contenu" }{{/helpers.snippet}}</p>
                         <p class="card-text"><small class="text-muted">Catégorie : {{categorie}}</small></p>
                         <p class="card-text"><small class="text-muted">Sous-catégorie : {{sous-categorie}}</small></p>
-                        <p class="card-text"><small class="text-muted">Tag : {{tags}}</small></p>
+                        <p class="card-text"><small class="text-muted">Tag : {{tag}}</small></p>
                     </div>
                     <div class="card-footer">
                         <a class="btn btn-link" href="{{url}}">Consulter la leçon</a>
