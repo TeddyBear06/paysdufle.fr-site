@@ -15,6 +15,28 @@ function tri_categories($a, $b) : array {
 }
 
 /**
+ * Permet de gérer un exercice avec intégration d'une iFrame.
+ */
+function iframe($numero, $contenu) : array {
+    $contenuParse = YamlFrontMatter::parse($contenu);
+    
+	$contenu = "<p>Vous pouvez directement faire cette activité sur le site de {$contenuParse->plateforme} en cliquant sur le lien suivant : <a href='{$contenuParse->iframe}' target='_blank'>{$contenuParse->iframe}</a>, sinon vous pouvez le faire dans le cadre ci-dessous.</p>";
+
+	$contenu .= '<div class="embed-responsive embed-responsive-16by9">
+		<iframe class="embed-responsive-item" src="'.$contenuParse->iframe.'" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+	</div>';
+
+    return [
+        'type' => 'iframe',
+        'numero' => $numero,
+        'contenu' => nl2br($contenu),
+        'afficher_bouton_reponses' => false,
+        'afficher_bouton_corriger' => false,
+        'consigne' => 'Apprenez avec '. $contenuParse->plateforme .'.'
+    ];
+}
+
+/**
  * Permet de gérer un exercice de type Quizlet.
  */
 function quizlet($numero, $contenu) : array {
