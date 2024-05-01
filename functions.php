@@ -20,7 +20,7 @@ function tri_categories($a, $b) : array {
 function iframe($numero, $contenu) : array {
     $contenuParse = YamlFrontMatter::parse($contenu);
     
-	$contenu = "<p>Vous pouvez directement faire cette activité sur le site de {$contenuParse->plateforme} en cliquant sur le lien suivant : <a href='{$contenuParse->iframe}' target='_blank'>{$contenuParse->iframe}</a>, sinon vous pouvez le faire dans le cadre ci-dessous.</p>";
+	$contenu = "<p>Vous pouvez directement faire cette activité sur le site '{$contenuParse->plateforme}' en cliquant <a href='{$contenuParse->iframe}' target='_blank'>sur ce lien</a>, sinon vous pouvez la faire dans le cadre ci-dessous.</p>";
 
 	$contenu .= '<div class="embed-responsive embed-responsive-16by9">
 		<iframe class="embed-responsive-item" src="'.$contenuParse->iframe.'" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
