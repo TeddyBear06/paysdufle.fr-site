@@ -10,7 +10,7 @@ Double cliquer sur "tout_premier_lancement.cmd"
 
 ## Quickstart
 
-Rendez-vous dans le répertoire qui contient le site, clic droit puis "Editer ave Code".
+Rendez-vous dans le répertoire qui contient le site, clic droit puis "Editer avec Code".
 
 Faites vos modifications.
 
