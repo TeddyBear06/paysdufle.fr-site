@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL ^ E_DEPRECATED);
+
 # On charge les librairies
 require __DIR__ . '/vendor/autoload.php';
 
