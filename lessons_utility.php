@@ -10,8 +10,9 @@ $climate = new League\CLImate\CLImate;
 const NOUVELLE_CATEGORIE = 'Nouvelle catégorie';
 const NOUVELLE_SOUS_CATEGORIE = 'Nouvelle sous-catégorie';
 const QUITTER = 'Quitter';
-const OUI_NON_ARRAY = ['Oui', 'Non'];
 const OUI = 'Oui';
+const NON = 'Non';
+const OUI_NON_ARRAY = [OUI, NON];
 
 # Configuration
 $climate->clear();
@@ -95,7 +96,7 @@ if ($reponse === OUI) {
         $progress = $climate->progress()->total(100);
         for ($i = 0; $i <= 100; $i++) {
             $progress->current($i);
-            usleep(30000);
+            usleep(15000);
         }
     }
 
