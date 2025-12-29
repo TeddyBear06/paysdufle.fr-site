@@ -101,8 +101,7 @@ function association_categorie($numero, $contenu) : array {
         return '<li class="list-inline-item btn btn-primary boutonCategorie" data-cible="propositions-' . $numero . '" data-categorie="' . $categorie['sluggedCategorie'] . '">' . $categorie['categorie'] . '</li>';
     }, $liCategories))
         . '</ul>';
-    $contenu = $ulPropositions
-        . $ulCategories;
+    $contenu = $ulCategories . $ulPropositions;
     return [
         'type' => 'association_categorie',
         'numero' => $numero,
