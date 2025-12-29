@@ -27,4 +27,6 @@ Utiliser ces pronoms est nécessaire pour créer vos premières phrases complexe
 
 **Exercice n° 4** Et maintenant choisissez entre "que" et "dont". 
 
-**Exercice n° 5** Êtes-vous capables de résoudre des devinettes, en utilisant tous les pronoms relatifs simples : "qui", "que", "où" et "dont" ? 
+**Exercice n° 5** Êtes-vous capables de résoudre des devinettes, en utilisant tous les pronoms relatifs simples : "qui", "que", "où" et "dont" ?
+
+Bon courage !
