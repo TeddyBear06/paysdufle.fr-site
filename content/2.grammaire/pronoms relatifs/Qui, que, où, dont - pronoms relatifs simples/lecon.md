@@ -1,6 +1,6 @@
 ---
 titre: Qui, que, où, dont - pronoms relatifs simples
-description: Cette leçon ve vous permettre de créer les définitions, d'utiliser les périphrases des mots en français
+description: Cette leçon va vous permettre de créer les définitions, d'utiliser les périphrases en français
 couverture: images/couverture.jpg
 tag: Pronoms
 ---
